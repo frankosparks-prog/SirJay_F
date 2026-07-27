@@ -11,10 +11,9 @@ import {
   CheckCircle2,
   Building2,
   Navigation,
-  MessageSquare,
-  Sparkles,
 } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
+import PageHero from "@/components/ui/PageHero";
 import Button from "@/components/ui/Button";
 
 export default function ContactPage() {
@@ -33,41 +32,16 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="space-y-20 pb-20 pt-6">
-      {/* PAGE HEADER */}
-      <section className="relative py-16 bg-gradient-to-b from-navy-950 via-navy-900 to-navy-950 border-b border-gold-500/20 overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-64 bg-gold-500/10 blur-[140px] pointer-events-none rounded-full"></div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-gold-500/10 text-gold-400 border border-gold-500/30">
-              Get In Touch With Us
-            </span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight max-w-4xl mx-auto"
-          >
-            Visit Our <span className="text-gradient-gold">Nanyuki Campus</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-base md:text-lg text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed"
-          >
-            Have questions about course fees, registration, or workshop schedules? Reach out or visit our campus desk in Nanyuki Town.
-          </motion.p>
-        </div>
-      </section>
+    <div className="space-y-20 pb-20">
+      {/* PAGE HERO BANNER */}
+      <PageHero
+        badge="Get In Touch With Us"
+        title="Visit Our"
+        titleHighlight="Nanyuki Campus"
+        subtitle="Have questions about course fees, registration, or workshop schedules? Reach out or visit our campus desk in Nanyuki Town."
+        bgImage="https://images.unsplash.com/photo-1577495508048-b635879837f1?q=80&w=1920&auto=format&fit=crop"
+        breadcrumbs={[{ label: "Contact Us" }]}
+      />
 
       {/* MAIN CONTACT & MAP GRID */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -81,62 +55,62 @@ export default function ContactPage() {
             className="lg:col-span-5 space-y-6"
           >
             {/* Direct Contact Card */}
-            <div className="p-8 rounded-3xl glass-panel border border-gold-500/30 space-y-6 shadow-2xl">
-              <h3 className="text-2xl font-black text-white flex items-center gap-2 border-b border-slate-800 pb-4">
-                <Building2 className="w-6 h-6 text-gold-400" />
+            <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-6">
+              <h3 className="text-2xl font-black text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-4">
+                <Building2 className="w-6 h-6 text-gold-600" />
                 Contact Details
               </h3>
 
-              <div className="space-y-5 text-sm text-slate-200">
+              <div className="space-y-5 text-sm text-slate-700">
                 <div className="flex items-start gap-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-navy-800 border border-gold-500/20 flex items-center justify-center text-gold-400 shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 text-navy-700 flex items-center justify-center font-bold shrink-0">
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className="font-bold text-white block">Campus Location</span>
-                    <span className="text-xs text-slate-300 leading-relaxed block mt-0.5">
+                    <span className="font-bold text-slate-900 block">Campus Location</span>
+                    <span className="text-xs text-slate-600 leading-relaxed block mt-0.5 font-normal">
                       Hospital Road, Off Nyeri-Nanyuki Highway, Near Cedar Mall Area, Nanyuki Town, Laikipia County, Kenya
                     </span>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-navy-800 border border-gold-500/20 flex items-center justify-center text-gold-400 shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 text-navy-700 flex items-center justify-center font-bold shrink-0">
                     <Phone className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className="font-bold text-white block">Phone Lines</span>
-                    <a href="tel:+254719185821" className="text-xs text-gold-300 hover:underline block mt-0.5 font-semibold">
+                    <span className="font-bold text-slate-900 block">Phone Lines</span>
+                    <a href="tel:+254719185821" className="text-xs text-navy-900 hover:underline block mt-0.5 font-bold">
                       +254 719 185 821
                     </a>
-                    <a href="tel:+254712345678" className="text-xs text-slate-300 hover:underline block">
+                    <a href="tel:+254712345678" className="text-xs text-slate-600 hover:underline block font-normal">
                       +254 712 345 678
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3.5">
-                  <div className="w-10 h-10 rounded-xl bg-navy-800 border border-gold-500/20 flex items-center justify-center text-gold-400 shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 text-navy-700 flex items-center justify-center font-bold shrink-0">
                     <Mail className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className="font-bold text-white block">Email Address</span>
-                    <a href="mailto:sirjaysuits@gmail.com" className="text-xs text-gold-300 hover:underline block mt-0.5 font-semibold">
+                    <span className="font-bold text-slate-900 block">Email Address</span>
+                    <a href="mailto:sirjaysuits@gmail.com" className="text-xs text-navy-900 hover:underline block mt-0.5 font-bold">
                       sirjaysuits@gmail.com
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3.5 pt-4 border-t border-slate-800">
-                  <div className="w-10 h-10 rounded-xl bg-navy-800 border border-gold-500/20 flex items-center justify-center text-gold-400 shrink-0">
+                <div className="flex items-start gap-3.5 pt-4 border-t border-slate-100">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 text-navy-700 flex items-center justify-center font-bold shrink-0">
                     <Clock className="w-5 h-5" />
                   </div>
                   <div>
-                    <span className="font-bold text-white block">Working Hours</span>
-                    <span className="text-xs text-slate-300 block mt-0.5">
+                    <span className="font-bold text-slate-900 block">Working Hours</span>
+                    <span className="text-xs text-slate-600 block mt-0.5">
                       Mon - Fri: 9:00 AM - 5:00 PM
                     </span>
-                    <span className="text-xs text-slate-300 block">
+                    <span className="text-xs text-slate-600 block">
                       Sat: 9:00 AM - 2:00 PM (Closed Sun & Holidays)
                     </span>
                   </div>
@@ -145,11 +119,11 @@ export default function ContactPage() {
             </div>
 
             {/* Flexible Hours Summary Pill */}
-            <div className="p-6 rounded-2xl glass-card border border-white/10 space-y-2">
-              <h4 className="text-xs font-bold text-gold-400 uppercase tracking-widest">
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md space-y-2">
+              <h4 className="text-xs font-bold text-gold-600 uppercase tracking-widest">
                 Flexible Learning Schedules
               </h4>
-              <ul className="text-xs text-slate-300 space-y-1">
+              <ul className="text-xs text-slate-600 space-y-1 font-medium">
                 <li>• <strong>Day Classes:</strong> Mon-Fri 9:00 AM - 5:00 PM</li>
                 <li>• <strong>Evening Classes:</strong> Mon-Fri 5:30 PM - 8:00 PM</li>
                 <li>• <strong>Saturday Weekend:</strong> 10:00 AM - 3:00 PM</li>
@@ -166,24 +140,24 @@ export default function ContactPage() {
             className="lg:col-span-7 space-y-6"
           >
             {/* Contact Form Card */}
-            <div className="p-8 md:p-10 rounded-3xl glass-panel border border-gold-500/30 shadow-2xl space-y-6">
+            <div className="p-8 md:p-10 rounded-3xl bg-white border border-slate-200 shadow-2xl space-y-6">
               <div>
-                <span className="text-xs font-bold text-gold-400 uppercase tracking-widest block">
+                <span className="text-xs font-bold text-gold-600 uppercase tracking-widest block">
                   Send Us A Direct Message
                 </span>
-                <h3 className="text-2xl md:text-3xl font-black text-white mt-1">
+                <h3 className="text-2xl md:text-3xl font-black text-slate-900 mt-1">
                   Inquire Online
                 </h3>
               </div>
 
               {submitted ? (
-                <div className="p-8 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-4">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                <div className="p-8 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-4">
+                  <div className="w-14 h-14 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
-                  <h4 className="text-xl font-bold text-white">Inquiry Sent Successfully!</h4>
-                  <p className="text-xs text-slate-300 max-w-md mx-auto">
-                    Thank you, <strong className="text-white">{formData.fullName}</strong>. We have received your inquiry regarding <strong className="text-gold-300">{formData.courseOfInterest}</strong> and will respond shortly via email or phone.
+                  <h4 className="text-xl font-bold text-slate-900">Inquiry Sent Successfully!</h4>
+                  <p className="text-xs text-slate-600 max-w-md mx-auto">
+                    Thank you, <strong className="text-slate-900">{formData.fullName}</strong>. We have received your inquiry regarding <strong className="text-navy-900">{formData.courseOfInterest}</strong> and will respond shortly.
                   </p>
                   <Button onClick={() => setSubmitted(false)} variant="outline" size="sm">
                     Send Another Message
@@ -193,49 +167,49 @@ export default function ContactPage() {
                 <form onSubmit={handleSubmit} className="space-y-4 text-xs">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label className="font-semibold text-slate-200">Full Name *</label>
+                      <label className="font-semibold text-slate-700">Full Name *</label>
                       <input
                         type="text"
                         required
                         placeholder="e.g. Mary Wanjiku"
                         value={formData.fullName}
                         onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-navy-900 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-gold-400"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
                       />
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="font-semibold text-slate-200">Phone Number *</label>
+                      <label className="font-semibold text-slate-700">Phone Number *</label>
                       <input
                         type="tel"
                         required
                         placeholder="e.g. +254 719 185 821"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-navy-900 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-gold-400"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label className="font-semibold text-slate-200">Email Address *</label>
+                      <label className="font-semibold text-slate-700">Email Address *</label>
                       <input
                         type="email"
                         required
                         placeholder="e.g. mary@gmail.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-navy-900 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-gold-400"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
                       />
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="font-semibold text-slate-200">Course of Interest *</label>
+                      <label className="font-semibold text-slate-700">Course of Interest *</label>
                       <select
                         value={formData.courseOfInterest}
                         onChange={(e) => setFormData({ ...formData, courseOfInterest: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-navy-900 border border-slate-700 text-white focus:outline-none focus:border-gold-400"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:border-gold-500"
                       >
                         <option value="Fashion Design - Comprehensive">Sir Jay School of Fashion Design</option>
                         <option value="Artisan Trade Test Level 3">Artisan Level 3 Trade Test</option>
@@ -248,14 +222,14 @@ export default function ContactPage() {
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="font-semibold text-slate-200">Message / Inquiry *</label>
+                    <label className="font-semibold text-slate-700">Message / Inquiry *</label>
                     <textarea
                       rows={4}
                       required
                       placeholder="Write your questions here regarding intakes, fee structure, or directions..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-navy-900 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-gold-400"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
                     ></textarea>
                   </div>
 
@@ -266,13 +240,13 @@ export default function ContactPage() {
               )}
             </div>
 
-            {/* Map Direction Card Placeholder */}
-            <div className="p-6 rounded-2xl glass-card border border-gold-500/20 flex items-center justify-between gap-4">
+            {/* Map Direction Card */}
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <Navigation className="w-6 h-6 text-gold-400" />
+                <Navigation className="w-6 h-6 text-gold-600" />
                 <div>
-                  <h4 className="text-sm font-bold text-white">Nanyuki Town Campus Directions</h4>
-                  <p className="text-xs text-slate-300">
+                  <h4 className="text-sm font-bold text-slate-900">Nanyuki Town Campus Directions</h4>
+                  <p className="text-xs text-slate-500">
                     Located off Nyeri-Nanyuki Highway near Cedar Mall area.
                   </p>
                 </div>
@@ -281,7 +255,7 @@ export default function ContactPage() {
                 href="https://maps.google.com/?q=Nanyuki+Kenya"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs font-bold text-gold-400 hover:underline shrink-0"
+                className="text-xs font-bold text-navy-900 hover:underline shrink-0"
               >
                 Open Google Maps →
               </a>

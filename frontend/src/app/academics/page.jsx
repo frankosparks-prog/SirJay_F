@@ -9,15 +9,14 @@ import {
   Scissors,
   Award,
   Sparkles,
-  Layers,
   ArrowRight,
   Shirt,
   Music,
   Camera,
   Coffee,
-  Sparkle,
 } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
+import PageHero from "@/components/ui/PageHero";
 import CourseTable from "@/components/ui/CourseTable";
 import Button from "@/components/ui/Button";
 
@@ -51,53 +50,28 @@ const scheduleOptions = [
 
 export default function AcademicsPage() {
   return (
-    <div className="space-y-20 pb-20 pt-6">
-      {/* PAGE HEADER */}
-      <section className="relative py-16 bg-gradient-to-b from-navy-950 via-navy-900 to-navy-950 border-b border-gold-500/20 overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-64 bg-gold-500/10 blur-[140px] pointer-events-none rounded-full"></div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-gold-500/10 text-gold-400 border border-gold-500/30">
-              Academic Excellence & KNQF Framework
-            </span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight max-w-4xl mx-auto"
-          >
-            Sir Jay School of <span className="text-gradient-gold">Fashion Design</span> & Academics
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-base md:text-lg text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed"
-          >
-            Our flagship curriculum combines 12 comprehensive units with flexible learning schedules and recognized KNQF progression pathways.
-          </motion.p>
-        </div>
-      </section>
+    <div className="space-y-20 pb-20">
+      {/* PAGE HERO BANNER */}
+      <PageHero
+        badge="Academic Excellence & KNQF Framework"
+        title="Sir Jay School of"
+        titleHighlight="Fashion Design"
+        subtitle="Our flagship curriculum combines 12 comprehensive units with flexible learning schedules and recognized KNQF progression pathways."
+        bgImage="https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?q=80&w=1920&auto=format&fit=crop"
+        breadcrumbs={[{ label: "Academics" }]}
+      />
 
       {/* INTUITIVE INTAKES BANNER */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-6 rounded-2xl glass-panel border border-gold-500/30 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 shrink-0">
+        <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-lg flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-navy-700 font-bold shrink-0">
               <Calendar className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-white">Upcoming & Ongoing Intakes</h3>
-              <p className="text-xs text-slate-300">
-                Major Intakes in <strong className="text-gold-300">January</strong> and generally <strong className="text-gold-300">Ongoing rolling admissions</strong> throughout the year.
+              <h3 className="text-lg font-extrabold text-slate-900">Upcoming & Ongoing Intakes</h3>
+              <p className="text-xs text-slate-600">
+                Major Intakes in <strong className="text-navy-900">January</strong> and generally <strong className="text-navy-900">Ongoing rolling admissions</strong> throughout the year.
               </p>
             </div>
           </div>
@@ -125,23 +99,24 @@ export default function AcademicsPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="p-6 rounded-2xl glass-card glass-card-hover space-y-3 flex flex-col justify-between"
+              whileHover={{ y: -4 }}
+              className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md space-y-3 flex flex-col justify-between"
             >
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
-                  <span className="text-xs font-bold text-gold-400 uppercase tracking-wider">
+                  <span className="text-xs font-bold text-gold-600 uppercase tracking-wider">
                     Tier 0{idx + 1}
                   </span>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-navy-800 text-slate-300 border border-slate-700">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-700">
                     {item.duration}
                   </span>
                 </div>
-                <h3 className="text-xl font-bold text-white">{item.level} Level</h3>
-                <p className="text-xs text-slate-300 leading-relaxed">{item.desc}</p>
+                <h3 className="text-xl font-extrabold text-slate-900">{item.level} Level</h3>
+                <p className="text-xs text-slate-600 leading-relaxed font-normal">{item.desc}</p>
               </div>
 
-              <div className="pt-3 border-t border-slate-800 flex items-center gap-1.5 text-xs text-gold-300 font-medium">
-                <CheckCircle2 className="w-3.5 h-3.5 text-gold-400" />
+              <div className="pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs text-navy-700 font-semibold">
+                <CheckCircle2 className="w-3.5 h-3.5 text-gold-500" />
                 <span>3 Months Practical</span>
               </div>
             </motion.div>
@@ -166,15 +141,16 @@ export default function AcademicsPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.08 }}
-              className="p-6 rounded-2xl glass-card space-y-3 border border-white/5 hover:border-gold-500/30 transition-all"
+              whileHover={{ y: -3 }}
+              className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3 hover:border-gold-500/50 transition-all"
             >
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 font-bold text-xs shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-gold-500/10 text-gold-600 font-bold text-xs flex items-center justify-center shrink-0">
                   {idx + 1}
                 </div>
-                <h4 className="text-base font-bold text-white">{unit.title}</h4>
+                <h4 className="text-base font-extrabold text-slate-900">{unit.title}</h4>
               </div>
-              <p className="text-xs text-slate-300 leading-relaxed pl-11">
+              <p className="text-xs text-slate-600 leading-relaxed font-normal pl-11">
                 {unit.desc}
               </p>
             </motion.div>
@@ -210,60 +186,25 @@ export default function AcademicsPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.15 }}
-              className="p-8 rounded-3xl glass-panel border border-gold-500/20 space-y-4 relative"
+              whileHover={{ y: -4 }}
+              className="p-8 rounded-3xl bg-white border border-slate-200 shadow-lg space-y-4 relative"
             >
               <div className="flex justify-between items-center">
-                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-gold-500/10 text-gold-300 border border-gold-500/30">
+                <span className="text-xs font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-700">
                   {option.badge}
                 </span>
-                <Clock className="w-5 h-5 text-gold-400" />
+                <Clock className="w-5 h-5 text-gold-600" />
               </div>
 
-              <h3 className="text-xl font-bold text-white">{option.title}</h3>
+              <h3 className="text-xl font-extrabold text-slate-900">{option.title}</h3>
 
-              <div className="p-3 rounded-xl bg-navy-900 border border-slate-800 text-xs font-bold text-gold-300">
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-navy-800">
                 {option.time}
               </div>
 
-              <p className="text-xs text-slate-300 leading-relaxed">{option.desc}</p>
+              <p className="text-xs text-slate-600 leading-relaxed font-normal">{option.desc}</p>
             </motion.div>
           ))}
-        </div>
-      </section>
-
-      {/* COMING SOON DEPARTMENTS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div className="p-8 rounded-3xl glass-card border border-slate-800 space-y-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
-            <div>
-              <h3 className="text-xl font-bold text-white">More Departments Coming Soon</h3>
-              <p className="text-xs text-slate-400 mt-1">
-                Sir Jay Institute is expanding into Beauty, Music Production, Runway Modeling, and Hospitality.
-              </p>
-            </div>
-            <span className="text-xs px-3 py-1.5 rounded-full bg-gold-500/10 text-gold-300 border border-gold-500/30">
-              Future Ready
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
-            <div className="p-4 rounded-xl bg-navy-900 border border-slate-800 space-y-1">
-              <span className="font-bold text-white block">Cosmetology & Beauty</span>
-              <span className="text-slate-400">Hair, skin, spa & aesthetic therapies.</span>
-            </div>
-            <div className="p-4 rounded-xl bg-navy-900 border border-slate-800 space-y-1">
-              <span className="font-bold text-white block">Deejay School</span>
-              <span className="text-slate-400">DJ equipment, mixing & audio production.</span>
-            </div>
-            <div className="p-4 rounded-xl bg-navy-900 border border-slate-800 space-y-1">
-              <span className="font-bold text-white block">Modeling School</span>
-              <span className="text-slate-400">Runway walks, commercial photoshoot prep.</span>
-            </div>
-            <div className="p-4 rounded-xl bg-navy-900 border border-slate-800 space-y-1">
-              <span className="font-bold text-white block">Select Hospitality</span>
-              <span className="text-slate-400">Front office, event styling & catering.</span>
-            </div>
-          </div>
         </div>
       </section>
     </div>

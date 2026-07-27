@@ -8,48 +8,19 @@ import {
   Sparkles,
   Calendar,
   Clock,
-  MapPin,
-  Phone,
-  Mail,
-  HelpCircle,
   FileCheck,
-  User,
-  GraduationCap,
 } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
+import PageHero from "@/components/ui/PageHero";
 import Button from "@/components/ui/Button";
 
 const roadmapSteps = [
-  {
-    step: "01",
-    title: "Explore Course",
-    desc: "Select your preferred track in Fashion Design, ICT, or Media Arts.",
-  },
-  {
-    step: "02",
-    title: "Apply Online",
-    desc: "Fill the application form below or visit our Nanyuki campus desk.",
-  },
-  {
-    step: "03",
-    title: "Admission Letter",
-    desc: "Receive your official admission confirmation via SMS or Email.",
-  },
-  {
-    step: "04",
-    title: "Registration Fee",
-    desc: "Pay your initial registration deposit conveniently via M-Pesa.",
-  },
-  {
-    step: "05",
-    title: "Orientation",
-    desc: "Meet your expert trainers, inspect our modern studios and tools.",
-  },
-  {
-    step: "06",
-    title: "Start Learning",
-    desc: "Begin your practical hands-on sessions and build your portfolio.",
-  },
+  { step: "01", title: "Explore Course", desc: "Select your preferred track in Fashion Design, ICT, or Media Arts." },
+  { step: "02", title: "Apply Online", desc: "Fill the application form below or visit our Nanyuki campus desk." },
+  { step: "03", title: "Admission Letter", desc: "Receive your official admission confirmation via SMS or Email." },
+  { step: "04", title: "Registration Fee", desc: "Pay your initial registration deposit conveniently via M-Pesa." },
+  { step: "05", title: "Orientation", desc: "Meet your expert trainers, inspect our modern studios and tools." },
+  { step: "06", title: "Start Learning", desc: "Begin your practical hands-on sessions and build your portfolio." },
 ];
 
 const admissionChecklist = [
@@ -77,41 +48,16 @@ export default function AdmissionsPage() {
   };
 
   return (
-    <div className="space-y-20 pb-20 pt-6">
-      {/* PAGE HEADER */}
-      <section className="relative py-16 bg-gradient-to-b from-navy-950 via-navy-900 to-navy-950 border-b border-gold-500/20 overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-64 bg-gold-500/10 blur-[140px] pointer-events-none rounded-full"></div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-gold-500/10 text-gold-400 border border-gold-500/30">
-              Admissions & Enrollment
-            </span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight max-w-4xl mx-auto"
-          >
-            6 Steps To Join <span className="text-gradient-gold">Sir Jay Institute</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-base md:text-lg text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed"
-          >
-            Our simple 6-step enrollment process gets you into the workshop quickly. Apply online today or visit our Nanyuki campus.
-          </motion.p>
-        </div>
-      </section>
+    <div className="space-y-20 pb-20">
+      {/* PAGE HERO BANNER */}
+      <PageHero
+        badge="Admissions & Enrollment"
+        title="6 Steps To Join"
+        titleHighlight="Sir Jay Institute"
+        subtitle="Our simple 6-step enrollment process gets you into the workshop quickly. Apply online today or visit our Nanyuki campus."
+        bgImage="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1920&auto=format&fit=crop"
+        breadcrumbs={[{ label: "Admissions" }]}
+      />
 
       {/* 6-STEP ROADMAP TIMELINE */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
@@ -130,22 +76,23 @@ export default function AdmissionsPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="p-6 rounded-2xl glass-card border border-gold-500/20 hover:border-gold-500/40 transition-all space-y-3 relative group"
+              whileHover={{ y: -4 }}
+              className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md space-y-3 relative group"
             >
               <div className="flex justify-between items-center">
-                <span className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400 font-extrabold text-sm group-hover:bg-gold-500 group-hover:text-navy-950 transition-colors">
+                <span className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-navy-800 font-black text-sm group-hover:bg-gold-500 group-hover:text-navy-950 transition-colors">
                   {item.step}
                 </span>
-                <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
+                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
                   Step {idx + 1} of 6
                 </span>
               </div>
 
-              <h3 className="text-xl font-bold text-white group-hover:text-gold-300 transition-colors">
+              <h3 className="text-xl font-extrabold text-slate-900 group-hover:text-navy-700 transition-colors">
                 {item.title}
               </h3>
 
-              <p className="text-xs text-slate-300 leading-relaxed font-normal">
+              <p className="text-xs text-slate-600 leading-relaxed font-normal">
                 {item.desc}
               </p>
             </motion.div>
@@ -158,42 +105,42 @@ export default function AdmissionsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Left Column: Requirements & Info */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="p-8 rounded-3xl glass-panel border border-gold-500/30 space-y-6">
-              <div className="flex items-center gap-3 border-b border-slate-800 pb-4">
-                <FileCheck className="w-6 h-6 text-gold-400" />
+            <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-6">
+              <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
+                <FileCheck className="w-6 h-6 text-gold-600" />
                 <div>
-                  <h3 className="text-xl font-bold text-white">Required Documents</h3>
-                  <p className="text-xs text-slate-400">Bring these on orientation day</p>
+                  <h3 className="text-xl font-extrabold text-slate-900">Required Documents</h3>
+                  <p className="text-xs text-slate-500">Bring these on orientation day</p>
                 </div>
               </div>
 
-              <ul className="space-y-3 text-xs text-slate-300">
+              <ul className="space-y-3 text-xs text-slate-700 font-medium">
                 {admissionChecklist.map((req, idx) => (
                   <li key={idx} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-4 h-4 text-gold-400 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-gold-500 shrink-0 mt-0.5" />
                     <span>{req}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="p-6 rounded-2xl glass-card border border-white/10 space-y-4">
-              <h4 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                <Clock className="w-4 h-4 text-gold-400" />
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md space-y-4">
+              <h4 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                <Clock className="w-4 h-4 text-gold-600" />
                 Working & Operating Hours
               </h4>
-              <div className="text-xs text-slate-300 space-y-2">
-                <div className="flex justify-between border-b border-slate-800 pb-1">
+              <div className="text-xs text-slate-600 space-y-2">
+                <div className="flex justify-between border-b border-slate-100 pb-1">
                   <span>Monday - Friday</span>
-                  <span className="font-semibold text-white">9:00 AM - 5:00 PM</span>
+                  <span className="font-bold text-slate-900">9:00 AM - 5:00 PM</span>
                 </div>
-                <div className="flex justify-between border-b border-slate-800 pb-1">
+                <div className="flex justify-between border-b border-slate-100 pb-1">
                   <span>Saturday</span>
-                  <span className="font-semibold text-white">9:00 AM - 2:00 PM</span>
+                  <span className="font-bold text-slate-900">9:00 AM - 2:00 PM</span>
                 </div>
                 <div className="flex justify-between text-slate-400">
                   <span>Sundays & Public Holidays</span>
-                  <span className="font-semibold text-slate-500">Closed</span>
+                  <span className="font-semibold text-slate-400">Closed</span>
                 </div>
               </div>
             </div>
@@ -206,28 +153,28 @@ export default function AdmissionsPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="p-8 md:p-10 rounded-3xl glass-panel border border-gold-500/30 shadow-2xl space-y-6"
+              className="p-8 md:p-10 rounded-3xl bg-white border border-slate-200 shadow-2xl space-y-6"
             >
               <div>
-                <span className="text-xs font-bold text-gold-400 uppercase tracking-widest block">
+                <span className="text-xs font-bold text-gold-600 uppercase tracking-widest block">
                   Online Registration Form
                 </span>
-                <h3 className="text-2xl md:text-3xl font-black text-white mt-1">
+                <h3 className="text-2xl md:text-3xl font-black text-slate-900 mt-1">
                   Apply for Admission Today
                 </h3>
-                <p className="text-xs text-slate-300 mt-1">
+                <p className="text-xs text-slate-500 mt-1">
                   Fill in your information to reserve your seat for the upcoming intake.
                 </p>
               </div>
 
               {submitted ? (
-                <div className="p-8 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-4">
-                  <div className="w-14 h-14 mx-auto rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                <div className="p-8 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-4">
+                  <div className="w-14 h-14 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
-                  <h4 className="text-xl font-bold text-white">Application Submitted Successfully!</h4>
-                  <p className="text-xs text-slate-300 max-w-md mx-auto">
-                    Thank you, <strong className="text-white">{formData.fullName}</strong>. Our admissions officer will reach out via <strong className="text-gold-300">{formData.phone}</strong> with your official admission letter details.
+                  <h4 className="text-xl font-bold text-slate-900">Application Submitted Successfully!</h4>
+                  <p className="text-xs text-slate-600 max-w-md mx-auto">
+                    Thank you, <strong className="text-slate-900">{formData.fullName}</strong>. Our admissions officer will reach out via <strong className="text-navy-900">{formData.phone}</strong> with your official admission letter details.
                   </p>
                   <Button onClick={() => setSubmitted(false)} variant="outline" size="sm">
                     Submit Another Application
@@ -237,65 +184,63 @@ export default function AdmissionsPage() {
                 <form onSubmit={handleSubmit} className="space-y-4 text-xs">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label className="font-semibold text-slate-200">Full Name *</label>
+                      <label className="font-semibold text-slate-700">Full Name *</label>
                       <input
                         type="text"
                         required
                         placeholder="e.g. John Mwangi"
                         value={formData.fullName}
                         onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-navy-900 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-gold-400"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
                       />
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="font-semibold text-slate-200">Phone Number *</label>
+                      <label className="font-semibold text-slate-700">Phone Number *</label>
                       <input
                         type="tel"
                         required
                         placeholder="e.g. +254 712 345 678"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-navy-900 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-gold-400"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="font-semibold text-slate-200">Email Address</label>
+                    <label className="font-semibold text-slate-700">Email Address</label>
                     <input
                       type="email"
                       placeholder="e.g. student@gmail.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-navy-900 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-gold-400"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
                     />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label className="font-semibold text-slate-200">Intended Course *</label>
+                      <label className="font-semibold text-slate-700">Intended Course *</label>
                       <select
                         value={formData.intendedCourse}
                         onChange={(e) => setFormData({ ...formData, intendedCourse: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-navy-900 border border-slate-700 text-white focus:outline-none focus:border-gold-400"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:border-gold-500"
                       >
                         <option value="Fashion Design - Comprehensive">Sir Jay School of Fashion Design</option>
                         <option value="Artisan Trade Test (NITA)">Artisan Level 3 Trade Test</option>
                         <option value="Certificate Level 4">KNQF Level 4 Certificate</option>
                         <option value="Craft Level 5">KNQF Level 5 Craft Certificate</option>
                         <option value="Diploma Level 6">KNQF Level 6 Diploma</option>
-                        <option value="Cosmetology & Beauty">Cosmetology & Beauty (Coming Soon)</option>
-                        <option value="Deejay School">Deejay School (Coming Soon)</option>
                       </select>
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="font-semibold text-slate-200">Education Level *</label>
+                      <label className="font-semibold text-slate-700">Education Level *</label>
                       <select
                         value={formData.educationLevel}
                         onChange={(e) => setFormData({ ...formData, educationLevel: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-navy-900 border border-slate-700 text-white focus:outline-none focus:border-gold-400"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:border-gold-500"
                       >
                         <option value="KCSE Certificate">KCSE Certificate</option>
                         <option value="KCPE Certificate">KCPE Certificate</option>
@@ -308,11 +253,11 @@ export default function AdmissionsPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label className="font-semibold text-slate-200">Preferred Intake *</label>
+                      <label className="font-semibold text-slate-700">Preferred Intake *</label>
                       <select
                         value={formData.preferredIntake}
                         onChange={(e) => setFormData({ ...formData, preferredIntake: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-navy-900 border border-slate-700 text-white focus:outline-none focus:border-gold-400"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:border-gold-500"
                       >
                         <option value="January Intake">January Intake</option>
                         <option value="May Intake">May Intake</option>
@@ -322,11 +267,11 @@ export default function AdmissionsPage() {
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="font-semibold text-slate-200">Schedule Preference *</label>
+                      <label className="font-semibold text-slate-700">Schedule Preference *</label>
                       <select
                         value={formData.schedulePreference}
                         onChange={(e) => setFormData({ ...formData, schedulePreference: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-navy-900 border border-slate-700 text-white focus:outline-none focus:border-gold-400"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:border-gold-500"
                       >
                         <option value="Day Class (9am-5pm)">Day Class (Mon-Fri 9am-5pm)</option>
                         <option value="Evening Class (5:30pm-8pm)">Evening Class (Mon-Fri 5:30pm-8pm)</option>

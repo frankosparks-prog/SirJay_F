@@ -12,7 +12,7 @@ export default function CourseTable() {
       requirement: "Any Grade / KCPE Certificate",
       duration: "6 - 12 Months",
       progression: "Level 4 (Certificate)",
-      badgeColor: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+      badgeColor: "bg-blue-50 text-blue-700 border-blue-200",
     },
     {
       level: "Level 4",
@@ -21,7 +21,7 @@ export default function CourseTable() {
       requirement: "KCSE D- (Minus) or Level 3 Cert",
       duration: "1 Year",
       progression: "Level 5 (Craft)",
-      badgeColor: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+      badgeColor: "bg-amber-50 text-amber-700 border-amber-200",
     },
     {
       level: "Level 5",
@@ -30,7 +30,7 @@ export default function CourseTable() {
       requirement: "KCSE D (Plain) or Level 4 Cert",
       duration: "1 Year",
       progression: "Level 6 (Diploma)",
-      badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+      badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
     },
     {
       level: "Level 6",
@@ -39,23 +39,23 @@ export default function CourseTable() {
       requirement: "KCSE C- (Minus) or Level 5 Craft",
       duration: "2 Years + Industrial Attachment",
       progression: "Level 7 (University Entry)",
-      badgeColor: "bg-purple-500/10 text-purple-400 border-purple-500/20",
+      badgeColor: "bg-purple-50 text-purple-700 border-purple-200",
     },
   ];
 
   return (
-    <div className="w-full overflow-hidden rounded-2xl glass-panel border border-gold-500/20 shadow-2xl">
-      <div className="p-6 bg-gradient-to-r from-navy-900 via-navy-800 to-navy-900 border-b border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="w-full overflow-hidden rounded-3xl bg-white border border-slate-200 shadow-xl">
+      <div className="p-6 bg-gradient-to-r from-navy-950 via-navy-900 to-navy-950 text-white border-b border-gold-500/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h3 className="text-xl font-bold text-white flex items-center gap-2">
+          <h3 className="text-xl font-extrabold text-white flex items-center gap-2">
             <Award className="w-6 h-6 text-gold-400" />
             KNQF National Qualification Progression Framework
           </h3>
-          <p className="text-sm text-slate-300 mt-1">
+          <p className="text-xs text-slate-300 mt-1">
             TVETA-aligned career growth pathways from Artisan entry level to University progression.
           </p>
         </div>
-        <span className="self-start md:self-auto text-xs px-3 py-1.5 rounded-full bg-gold-500/10 text-gold-300 border border-gold-500/30 font-medium">
+        <span className="self-start md:self-auto text-xs px-3 py-1.5 rounded-full bg-gold-500/20 text-gold-300 border border-gold-500/30 font-bold">
           Official TVETA Matrix
         </span>
       </div>
@@ -64,7 +64,7 @@ export default function CourseTable() {
       <div className="hidden md:block overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-navy-950/80 text-gold-400 text-xs font-semibold uppercase tracking-wider border-b border-slate-800">
+            <tr className="bg-slate-50 text-slate-700 text-xs font-bold uppercase tracking-wider border-b border-slate-200">
               <th className="py-4 px-6">KNQF Level</th>
               <th className="py-4 px-6">Award & Qualification</th>
               <th className="py-4 px-6">Entry Requirement</th>
@@ -72,7 +72,7 @@ export default function CourseTable() {
               <th className="py-4 px-6">Next Pathway</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-800/60 text-sm">
+          <tbody className="divide-y divide-slate-100 text-xs">
             {knqfLevels.map((row, idx) => (
               <motion.tr
                 key={row.level}
@@ -80,32 +80,32 @@ export default function CourseTable() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className="hover:bg-navy-800/50 transition-colors"
+                className="hover:bg-slate-50/80 transition-colors"
               >
                 <td className="py-4 px-6 font-medium whitespace-nowrap">
                   <span
-                    className={`inline-block px-3 py-1 rounded-full text-xs font-bold border ${row.badgeColor}`}
+                    className={`inline-block px-3 py-1 rounded-full text-xs font-extrabold border ${row.badgeColor}`}
                   >
                     {row.level}
                   </span>
-                  <div className="text-xs text-slate-400 mt-1">{row.title}</div>
+                  <div className="text-xs text-slate-500 mt-1 font-semibold">{row.title}</div>
                 </td>
-                <td className="py-4 px-6 font-semibold text-white">
+                <td className="py-4 px-6 font-extrabold text-slate-900">
                   <div className="flex items-center gap-2">
-                    <BookOpen className="w-4 h-4 text-gold-400 shrink-0" />
+                    <BookOpen className="w-4 h-4 text-navy-700 shrink-0" />
                     {row.qualification}
                   </div>
                 </td>
-                <td className="py-4 px-6 text-slate-300">{row.requirement}</td>
-                <td className="py-4 px-6 whitespace-nowrap text-slate-300">
+                <td className="py-4 px-6 text-slate-700 font-medium">{row.requirement}</td>
+                <td className="py-4 px-6 whitespace-nowrap text-slate-700 font-medium">
                   <div className="flex items-center gap-1.5">
                     <Clock className="w-4 h-4 text-slate-400 shrink-0" />
                     {row.duration}
                   </div>
                 </td>
-                <td className="py-4 px-6 font-medium text-gold-300">
+                <td className="py-4 px-6 font-bold text-navy-800">
                   <div className="flex items-center gap-1.5">
-                    <ArrowRight className="w-4 h-4 text-gold-400 shrink-0" />
+                    <ArrowRight className="w-4 h-4 text-gold-600 shrink-0" />
                     {row.progression}
                   </div>
                 </td>
@@ -116,7 +116,7 @@ export default function CourseTable() {
       </div>
 
       {/* Mobile Card List View */}
-      <div className="md:hidden divide-y divide-slate-800">
+      <div className="md:hidden divide-y divide-slate-100">
         {knqfLevels.map((row, idx) => (
           <motion.div
             key={row.level}
@@ -128,29 +128,29 @@ export default function CourseTable() {
           >
             <div className="flex justify-between items-start">
               <span
-                className={`px-3 py-1 rounded-full text-xs font-bold border ${row.badgeColor}`}
+                className={`px-3 py-1 rounded-full text-xs font-extrabold border ${row.badgeColor}`}
               >
                 {row.level} - {row.title}
               </span>
-              <div className="flex items-center gap-1 text-xs text-slate-400">
+              <div className="flex items-center gap-1 text-xs text-slate-500">
                 <Clock className="w-3.5 h-3.5" />
                 {row.duration}
               </div>
             </div>
 
             <div>
-              <h4 className="text-base font-semibold text-white flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-gold-400" />
+              <h4 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-gold-600" />
                 {row.qualification}
               </h4>
-              <p className="text-xs text-slate-400 mt-1">
-                <strong className="text-slate-300">Entry:</strong> {row.requirement}
+              <p className="text-xs text-slate-600 mt-1">
+                <strong className="text-slate-900">Entry:</strong> {row.requirement}
               </p>
             </div>
 
-            <div className="pt-2 flex items-center text-xs font-medium text-gold-300 border-t border-slate-800/60">
-              <span className="text-slate-400 mr-2">Progression:</span>
-              <ArrowRight className="w-3.5 h-3.5 text-gold-400 mr-1" />
+            <div className="pt-2 flex items-center text-xs font-bold text-navy-800 border-t border-slate-100">
+              <span className="text-slate-500 mr-2">Progression:</span>
+              <ArrowRight className="w-3.5 h-3.5 text-gold-600 mr-1" />
               {row.progression}
             </div>
           </motion.div>

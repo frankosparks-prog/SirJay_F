@@ -7,12 +7,10 @@ import {
   Users,
   Award,
   Sparkles,
-  HeartHandshake,
-  Camera,
-  Layers,
   ArrowRight,
 } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
+import PageHero from "@/components/ui/PageHero";
 import Button from "@/components/ui/Button";
 
 const galleryCards = [
@@ -22,8 +20,7 @@ const galleryCards = [
     category: "Practical Crafting",
     description: "Students operating industrial electric sewing machines, drafting patterns, and stitching bespoke garments under master instructor guidance.",
     icon: Scissors,
-    gradient: "from-amber-600/30 via-navy-900 to-navy-950",
-    border: "border-amber-500/30",
+    image: "https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?q=80&w=800&auto=format&fit=crop",
   },
   {
     id: 2,
@@ -31,8 +28,7 @@ const galleryCards = [
     category: "Digital Design",
     description: "Hands-on digital pattern CAD software, Adobe Creative Cloud illustration, and photo editing suites for modern fashion portfolios.",
     icon: Laptop,
-    gradient: "from-blue-600/30 via-navy-900 to-navy-950",
-    border: "border-blue-500/30",
+    image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=800&auto=format&fit=crop",
   },
   {
     id: 3,
@@ -40,8 +36,7 @@ const galleryCards = [
     category: "Entrepreneurship",
     description: "Interactive peer sessions covering pricing strategies, client negotiation, brand storytelling, and launching independent design brands.",
     icon: Users,
-    gradient: "from-purple-600/30 via-navy-900 to-navy-950",
-    border: "border-purple-500/30",
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop",
   },
   {
     id: 4,
@@ -49,8 +44,7 @@ const galleryCards = [
     category: "Celebration",
     description: "Celebrating student milestones with live runway showcases, alumni awards, and certificate handovers before family and industry leaders.",
     icon: Award,
-    gradient: "from-gold-600/30 via-navy-900 to-navy-950",
-    border: "border-gold-500/30",
+    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop",
   },
 ];
 
@@ -71,44 +65,18 @@ const studentHighlights = [
 
 export default function StudentLifePage() {
   return (
-    <div className="space-y-20 pb-20 pt-6">
-      {/* PAGE HEADER */}
-      <section className="relative py-16 bg-gradient-to-b from-navy-950 via-navy-900 to-navy-950 border-b border-gold-500/20 overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-64 bg-gold-500/10 blur-[140px] pointer-events-none rounded-full"></div>
+    <div className="space-y-20 pb-20">
+      {/* PAGE HERO BANNER */}
+      <PageHero
+        badge="Campus Life & Experience"
+        title="Vibrant Student Experience in"
+        titleHighlight="Nanyuki"
+        subtitle="From annual fashion showcases to computer innovation challenges and graduation days, life at Sir Jay Training Institute is dynamic, creative, and community-driven."
+        bgImage="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1920&auto=format&fit=crop"
+        breadcrumbs={[{ label: "Student Life" }]}
+      />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-gold-500/10 text-gold-400 border border-gold-500/30">
-              Campus Life & Experience
-            </span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight max-w-4xl mx-auto"
-          >
-            Vibrant Student Experience in{" "}
-            <span className="text-gradient-gold">Nanyuki</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-base md:text-lg text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed"
-          >
-            From annual fashion showcases to computer innovation challenges and graduation days, life at Sir Jay Training Institute is dynamic, creative, and community-driven.
-          </motion.p>
-        </div>
-      </section>
-
-      {/* GALLERY GRID SHOWCASE */}
+      {/* GALLERY GRID SHOWCASE (EDITORIAL IMAGE CARDS) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <SectionHeader
           badge="Campus Visual Tour"
@@ -127,31 +95,42 @@ export default function StudentLifePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.15 }}
-                className={`p-8 rounded-3xl glass-panel bg-gradient-to-br ${card.gradient} border ${card.border} space-y-6 group hover:shadow-2xl transition-all duration-300 relative overflow-hidden`}
+                whileHover={{ y: -6 }}
+                className="rounded-3xl bg-white border border-slate-200 shadow-xl overflow-hidden group flex flex-col justify-between"
               >
-                <div className="flex justify-between items-start">
-                  <div className="w-14 h-14 rounded-2xl bg-navy-950/80 border border-gold-500/30 flex items-center justify-center text-gold-400 group-hover:scale-110 group-hover:bg-gold-500 group-hover:text-navy-950 transition-all duration-300 shadow-lg">
-                    <CardIcon className="w-7 h-7 stroke-[2]" />
-                  </div>
-                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-navy-950/80 text-gold-300 border border-gold-500/20">
+                {/* Photo Header */}
+                <div className="relative h-64 overflow-hidden bg-slate-100">
+                  <img
+                    src={card.image}
+                    alt={card.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-4 left-4 text-xs font-bold px-3 py-1 rounded-full bg-white/90 text-navy-900 shadow-md backdrop-blur-md">
                     {card.category}
-                  </span>
+                  </div>
                 </div>
 
-                <div className="space-y-2">
-                  <h3 className="text-2xl font-black text-white group-hover:text-gold-300 transition-colors">
-                    {card.title}
-                  </h3>
-                  <p className="text-sm text-slate-300 leading-relaxed font-normal">
+                {/* Card Content */}
+                <div className="p-8 space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-slate-100 text-navy-700 flex items-center justify-center font-bold">
+                      <CardIcon className="w-5 h-5" />
+                    </div>
+                    <h3 className="text-2xl font-black text-slate-900 group-hover:text-navy-700 transition-colors">
+                      {card.title}
+                    </h3>
+                  </div>
+
+                  <p className="text-xs text-slate-600 leading-relaxed font-normal">
                     {card.description}
                   </p>
-                </div>
 
-                <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
-                  <span>Sir Jay Nanyuki Campus</span>
-                  <span className="text-gold-400 font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                    Explore Facility <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
+                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500 font-medium">
+                    <span>Nanyuki Main Campus</span>
+                    <span className="text-navy-700 font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                      Explore Facility <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  </div>
                 </div>
               </motion.div>
             );
@@ -161,12 +140,12 @@ export default function StudentLifePage() {
 
       {/* STUDENT HIGHLIGHTS & COMMUNITY */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-10 rounded-3xl glass-card border border-gold-500/20 space-y-8">
+        <div className="p-10 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-8">
           <div className="text-center space-y-2 max-w-2xl mx-auto">
-            <span className="text-xs font-bold text-gold-400 uppercase tracking-widest">
+            <span className="text-xs font-bold text-gold-600 uppercase tracking-widest">
               Student Centric Approach
             </span>
-            <h3 className="text-2xl md:text-3xl font-extrabold text-white">
+            <h3 className="text-2xl md:text-3xl font-black text-slate-900">
               What Makes Student Life Special Here?
             </h3>
           </div>
@@ -175,10 +154,10 @@ export default function StudentLifePage() {
             {studentHighlights.map((item, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded-2xl bg-navy-900/60 border border-slate-800 space-y-2"
+                className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-2"
               >
-                <h4 className="text-lg font-bold text-gold-300">{item.title}</h4>
-                <p className="text-xs text-slate-300 leading-relaxed">{item.desc}</p>
+                <h4 className="text-lg font-bold text-navy-900">{item.title}</h4>
+                <p className="text-xs text-slate-600 leading-relaxed font-normal">{item.desc}</p>
               </div>
             ))}
           </div>

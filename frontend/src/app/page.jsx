@@ -23,6 +23,7 @@ import dynamic from "next/dynamic";
 import Button from "@/components/ui/Button";
 import SectionHeader from "@/components/ui/SectionHeader";
 import CourseTable from "@/components/ui/CourseTable";
+import Counter from "@/components/ui/Counter";
 import Link from "next/link";
 
 const FloatingCanvas = dynamic(
@@ -30,11 +31,11 @@ const FloatingCanvas = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-full h-[380px] lg:h-[500px] flex items-center justify-center rounded-3xl glass-card border border-gold-500/20">
+      <div className="w-full h-[380px] lg:h-[480px] flex items-center justify-center rounded-3xl bg-navy-950 border border-gold-500/20">
         <div className="flex flex-col items-center gap-3">
           <div className="w-12 h-12 rounded-full border-4 border-gold-500 border-t-transparent animate-spin"></div>
           <span className="text-xs font-semibold uppercase tracking-wider text-gold-400">
-            Initializing 3D Creative Studio...
+            Simulating Silk 3D Studio...
           </span>
         </div>
       </div>
@@ -43,17 +44,17 @@ const FloatingCanvas = dynamic(
 );
 
 const stats = [
-  { label: "Graduated Alumni", value: "1,800+", icon: Users },
-  { label: "Professional Courses", value: "16+", icon: GraduationCap },
-  { label: "Self-Employment / Jobs", value: "95%", icon: Briefcase },
-  { label: "Practical & Equipment Access", value: "100%", icon: TrendingUp },
+  { label: "Graduated Alumni", value: "1,800", suffix: "+", icon: Users },
+  { label: "Professional Courses", value: "16", suffix: "+", icon: GraduationCap },
+  { label: "Self-Employment Rate", value: "95", suffix: "%", icon: Briefcase },
+  { label: "Practical Workshop Access", value: "100", suffix: "%", icon: TrendingUp },
 ];
 
 const fashionTiers = [
-  { title: "Beginner Level", duration: "3 Months", desc: "Foundations of sewing, basic sketching, and tool operation." },
-  { title: "Intermediate Level", duration: "3 Months", desc: "Garment drafting, fabric selection, and precision fitting." },
-  { title: "Expert Level", duration: "3 Months", desc: "Bespoke tailoring, embroidery, and complex pattern making." },
-  { title: "Professional Level", duration: "3 Months", desc: "Collection creation, fashion business law, and launch." },
+  { title: "Beginner Level", duration: "3 Months", desc: "Machine setup, straight stitching, body measurements, and basic pattern drafting." },
+  { title: "Intermediate Level", duration: "3 Months", desc: "Garment drafting, collar & sleeve techniques, zipper insertions, and precision fitting." },
+  { title: "Expert Level", duration: "3 Months", desc: "Bespoke tailoring, blazer construction, couture gowns, and embroidery embellishments." },
+  { title: "Professional Level", duration: "3 Months", desc: "Collection drafting, fashion illustration, brand identity, and fashion business law." },
 ];
 
 const coreUnits = [
@@ -74,57 +75,56 @@ const coreUnits = [
 const whyChooseCards = [
   {
     title: "Modern Studios & Workshops",
-    description: "Train with industrial electric sewing machines, heavy-duty pattern tables, and Adobe Creative Cloud labs designed to simulate high-end fashion houses.",
+    description: "Train with industrial electric sewing machines, heavy-duty pattern tables, and Adobe Creative Cloud labs designed to simulate commercial production houses.",
     icon: Scissors,
     tag: "State-of-the-Art",
+    image: "https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?q=80&w=800&auto=format&fit=crop",
   },
   {
     title: "Entrepreneurship Mentorship",
-    description: "Learn how to monetize your skills. We cover business registration, brand building, pricing strategy, customer relations, and launching your own boutique.",
+    description: "Learn how to monetize your creative talent. We cover business registration, brand building, pricing strategy, client relations, and boutique launching.",
     icon: Briefcase,
     tag: "Market-Ready",
+    image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800&auto=format&fit=crop",
   },
   {
     title: "Affordable & Flexible Installments",
-    description: "Education made accessible with customizable monthly fee payment structures, flexible day/evening/weekend classes, and merit-based scholarship opportunities.",
+    description: "Quality vocational education made accessible with monthly fee payment structures, flexible day/evening/weekend classes, and merit scholarships.",
     icon: Award,
     tag: "Flexible",
+    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop",
   },
 ];
 
 const comingSoonDepartments = [
-  { name: "Cosmetology & Beauty", desc: "Skincare, hair design, aesthetic therapies.", icon: Sparkle },
-  { name: "Deejay School", desc: "Digital mixing, sound engineering, performance.", icon: Music },
-  { name: "Modeling School", desc: "Runway poise, commercial camera work, portfolio.", icon: Camera },
-  { name: "Hospitality Courses", desc: "Customer care, event catering, front office.", icon: Coffee },
+  { name: "Cosmetology & Beauty", desc: "Skincare, hair design, spa & aesthetic therapies.", icon: Sparkle },
+  { name: "Deejay School", desc: "Digital mixing, sound engineering & live performance.", icon: Music },
+  { name: "Modeling School", desc: "Runway poise, commercial photography & portfolio build.", icon: Camera },
+  { name: "Hospitality Courses", desc: "Customer care, event catering & front office operations.", icon: Coffee },
 ];
 
 export default function HomePage() {
   return (
     <div className="space-y-24 pb-20">
-      {/* HERO SECTION */}
-      <section className="relative min-h-[85vh] flex items-center bg-gradient-to-b from-navy-950 via-navy-900 to-navy-950 overflow-hidden pt-8 pb-16">
-        {/* Background Radial Glow */}
+      {/* HERO SECTION (DARK NAVY ACCENT) */}
+      <section className="relative min-h-[85vh] flex items-center bg-gradient-to-b from-navy-950 via-navy-900 to-navy-950 overflow-hidden pt-8 pb-16 text-white border-b border-gold-500/20">
         <div className="absolute top-1/4 left-10 w-96 h-96 bg-gold-500/10 blur-[120px] rounded-full pointer-events-none"></div>
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-navy-600/20 blur-[140px] rounded-full pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Hero Left Content */}
+            {/* Hero Left */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7 }}
               className="lg:col-span-7 space-y-6 text-center lg:text-left"
             >
-              {/* Call-out Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-gold-500/30 text-gold-300 text-xs md:text-sm font-semibold shadow-lg">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel-dark text-gold-300 text-xs md:text-sm font-semibold shadow-lg">
                 <Sparkles className="w-4 h-4 text-gold-400 animate-spin" />
                 <span>Admissions Open for 2025/2026</span>
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
               </div>
 
-              {/* Institute Title & Slogan */}
               <div className="space-y-2">
                 <span className="text-xs uppercase font-extrabold tracking-widest text-gold-400 block">
                   Sir Jay Training Institute • Nanyuki, Kenya
@@ -138,12 +138,10 @@ export default function HomePage() {
                 </p>
               </div>
 
-              {/* Main CTA Prompt */}
               <p className="text-base sm:text-lg text-slate-200 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal">
                 &ldquo;Fashion your Future with us. Learn from the best and create your own design style.&rdquo;
               </p>
 
-              {/* Action Buttons */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
                 <Button href="/admissions" size="lg" icon={ArrowRight}>
                   Apply Today
@@ -153,8 +151,7 @@ export default function HomePage() {
                 </Button>
               </div>
 
-              {/* Quick Info Pills */}
-              <div className="pt-6 grid grid-cols-2 sm:grid-cols-3 gap-3 border-t border-slate-800/80 text-xs text-slate-300">
+              <div className="pt-6 grid grid-cols-2 sm:grid-cols-3 gap-3 border-t border-slate-800 text-xs text-slate-300">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-gold-400 shrink-0" />
                   <span>TVETA Registered</span>
@@ -170,7 +167,7 @@ export default function HomePage() {
               </div>
             </motion.div>
 
-            {/* Hero Right: 3D Canvas */}
+            {/* Hero Right: 3D Silk Canvas */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -183,26 +180,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ANIMATED STATS BAR */}
+      {/* ANIMATED STATS BAR (LIGHT EDITORIAL) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 rounded-3xl glass-panel border border-gold-500/25 shadow-2xl"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 rounded-3xl bg-white border border-slate-200 shadow-xl"
         >
           {stats.map((stat) => {
             const IconComp = stat.icon;
             return (
               <div key={stat.label} className="text-center space-y-2 group">
-                <div className="w-12 h-12 mx-auto rounded-2xl bg-navy-800/80 border border-gold-500/30 flex items-center justify-center text-gold-400 group-hover:scale-110 group-hover:bg-gold-500 group-hover:text-navy-950 transition-all duration-300">
+                <div className="w-12 h-12 mx-auto rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center text-navy-700 group-hover:bg-gold-500 group-hover:text-navy-950 transition-all duration-300 shadow-sm">
                   <IconComp className="w-6 h-6 stroke-[2]" />
                 </div>
-                <div className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                  {stat.value}
+                <div className="text-3xl sm:text-4xl font-black text-navy-900 tracking-tight">
+                  <Counter value={stat.value} suffix={stat.suffix} />
                 </div>
-                <div className="text-xs sm:text-sm text-slate-300 font-medium">
+                <div className="text-xs sm:text-sm text-slate-600 font-medium">
                   {stat.label}
                 </div>
               </div>
@@ -211,13 +208,13 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* WHY CHOOSE US (3 CARDS) */}
+      {/* WHY CHOOSE US (EDITORIAL CARDS WITH IMAGES) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <SectionHeader
           badge="The Sir Jay Advantage"
           title="Why Students Choose"
           titleHighlight="Sir Jay Institute"
-          subtitle="We combine practical hands-on workshop training with real business acumen so every graduate steps into the market ready to produce and earn."
+          subtitle="We combine practical hands-on workshop training with real business acumen so every graduate steps into the market ready to produce."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -230,30 +227,38 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.15 }}
-                className="p-8 rounded-3xl glass-card glass-card-hover flex flex-col justify-between space-y-6 group"
+                whileHover={{ y: -6 }}
+                className="rounded-3xl bg-white border border-slate-200 overflow-hidden shadow-lg flex flex-col justify-between group"
               >
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <div className="w-14 h-14 rounded-2xl bg-navy-800 border border-gold-500/30 flex items-center justify-center text-gold-400 group-hover:bg-gold-500 group-hover:text-navy-950 transition-all duration-300 shadow-md">
-                      <CardIcon className="w-7 h-7" />
-                    </div>
-                    <span className="text-xs font-semibold px-3 py-1 rounded-full bg-gold-500/10 text-gold-300 border border-gold-500/20">
-                      {card.tag}
-                    </span>
+                {/* Editorial Card Image */}
+                <div className="relative h-48 overflow-hidden bg-slate-100">
+                  <img
+                    src={card.image}
+                    alt={card.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-4 right-4 text-xs font-bold px-3 py-1 rounded-full bg-white/90 text-navy-900 shadow-md backdrop-blur-md">
+                    {card.tag}
                   </div>
-
-                  <h3 className="text-xl font-bold text-white group-hover:text-gold-300 transition-colors">
-                    {card.title}
-                  </h3>
-
-                  <p className="text-sm text-slate-300 leading-relaxed font-normal">
-                    {card.description}
-                  </p>
                 </div>
 
-                <div className="pt-4 border-t border-slate-800/80 flex items-center text-xs font-semibold text-gold-400 gap-2">
-                  <span>Learn more about this track</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <div className="p-7 space-y-4 flex-1 flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <div className="w-10 h-10 rounded-xl bg-slate-100 text-navy-700 flex items-center justify-center font-bold">
+                      <CardIcon className="w-5 h-5" />
+                    </div>
+                    <h3 className="text-xl font-extrabold text-slate-900 group-hover:text-navy-700 transition-colors">
+                      {card.title}
+                    </h3>
+                    <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                      {card.description}
+                    </p>
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-100 flex items-center text-xs font-bold text-navy-700 gap-1.5">
+                    <span>Explore this facility</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </div>
               </motion.div>
             );
@@ -267,7 +272,7 @@ export default function HomePage() {
           badge="Flagship Department"
           title="Sir Jay School of"
           titleHighlight="Fashion Design"
-          subtitle="From zero experience to crafting haute couture suits and contemporary African apparel in 4 progressive 3-month modules."
+          subtitle="From zero experience to crafting bespoke suits and contemporary apparel in 4 progressive 3-month modules."
         />
 
         {/* 4 Course Durations */}
@@ -279,42 +284,52 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="p-6 rounded-2xl glass-panel border border-gold-500/20 space-y-3 relative overflow-hidden"
+              whileHover={{ y: -4 }}
+              className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md space-y-3 flex flex-col justify-between"
             >
-              <div className="text-xs font-bold text-gold-400 uppercase tracking-wider">
-                Module 0{idx + 1}
+              <div className="space-y-2">
+                <span className="text-xs font-bold text-gold-600 uppercase tracking-wider">
+                  Module 0{idx + 1}
+                </span>
+                <h4 className="text-lg font-extrabold text-slate-900">{tier.title}</h4>
+                <div className="inline-block text-xs font-bold px-2.5 py-1 rounded bg-slate-100 text-slate-700">
+                  Duration: {tier.duration}
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed">{tier.desc}</p>
               </div>
-              <h4 className="text-lg font-extrabold text-white">{tier.title}</h4>
-              <div className="inline-block text-xs font-semibold px-2.5 py-1 rounded bg-navy-800 text-slate-200 border border-slate-700">
-                Duration: {tier.duration}
+
+              <div className="pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs text-navy-700 font-semibold">
+                <CheckCircle2 className="w-3.5 h-3.5 text-gold-500" />
+                <span>3 Months Practical</span>
               </div>
-              <p className="text-xs text-slate-300 leading-relaxed">{tier.desc}</p>
             </motion.div>
           ))}
         </div>
 
         {/* 12 Core Units Covered Grid */}
-        <div className="p-8 rounded-3xl glass-card border border-slate-800 space-y-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+        <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
             <div>
-              <h3 className="text-xl font-bold text-white">12 Core Units Covered</h3>
-              <p className="text-xs text-slate-400 mt-1">
-                Complete mastery curriculum tested and recognized in Kenya and internationally.
+              <h3 className="text-xl font-extrabold text-slate-900">12 Core Units Covered</h3>
+              <p className="text-xs text-slate-500 mt-1">
+                Curriculum tested and recognized in Kenya and internationally.
               </p>
             </div>
             <Button href="/academics" size="sm" variant="outline" icon={ArrowRight}>
-              View Syllabus
+              View Full Syllabus
             </Button>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
-            {coreUnits.map((unit) => (
+            {coreUnits.map((unit, idx) => (
               <div
                 key={unit}
-                className="flex items-center gap-2 p-3 rounded-xl bg-navy-900/60 border border-slate-800 text-slate-200 hover:border-gold-500/30 transition-colors"
+                className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 font-medium hover:border-gold-500 transition-colors"
               >
-                <CheckCircle2 className="w-4 h-4 text-gold-400 shrink-0" />
-                <span className="font-medium">{unit}</span>
+                <span className="w-5 h-5 rounded-full bg-gold-500/20 text-gold-600 flex items-center justify-center font-bold text-[10px] shrink-0">
+                  {idx + 1}
+                </span>
+                <span>{unit}</span>
               </div>
             ))}
           </div>
@@ -351,14 +366,14 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className="p-6 rounded-2xl glass-card border border-white/5 space-y-3 hover:border-gold-500/30 transition-all"
+                className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md space-y-3 hover:border-gold-500/50 transition-all"
               >
-                <div className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400">
+                <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-navy-700">
                   <DeptIcon className="w-5 h-5" />
                 </div>
-                <h4 className="text-base font-bold text-white">{dept.name}</h4>
-                <p className="text-xs text-slate-300">{dept.desc}</p>
-                <span className="inline-block text-[10px] uppercase font-bold text-gold-400 tracking-wider">
+                <h4 className="text-base font-bold text-slate-900">{dept.name}</h4>
+                <p className="text-xs text-slate-600">{dept.desc}</p>
+                <span className="inline-block text-[10px] uppercase font-bold text-gold-600 tracking-wider">
                   Registration Opening Soon
                 </span>
               </motion.div>
@@ -369,12 +384,12 @@ export default function HomePage() {
 
       {/* CALL TO ACTION BANNER */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-10 md:p-14 rounded-3xl glass-panel border border-gold-500/30 relative overflow-hidden bg-gradient-to-r from-navy-900 via-navy-800 to-navy-900 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="p-10 md:p-14 rounded-3xl bg-gradient-to-r from-navy-950 via-navy-900 to-navy-950 text-white shadow-2xl border border-gold-500/30 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="space-y-4 max-w-2xl">
             <span className="text-xs font-extrabold uppercase text-gold-400 tracking-widest">
               Ready to Begin Your Career?
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white leading-tight">
+            <h2 className="text-3xl md:text-4xl font-black text-white leading-tight">
               Join Sir Jay Training Institute Today.
             </h2>
             <p className="text-sm md:text-base text-slate-300">
