@@ -6,7 +6,6 @@ import {
   Laptop,
   Users,
   Award,
-  Sparkles,
   ArrowRight,
 } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
@@ -63,9 +62,22 @@ const studentHighlights = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { delayChildren: 0.1, staggerChildren: 0.15 },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
+};
+
 export default function StudentLifePage() {
   return (
-    <div className="space-y-20 pb-20">
+    <div className="space-y-20 pb-20 overflow-hidden">
       {/* PAGE HERO BANNER */}
       <PageHero
         badge="Campus Life & Experience"
@@ -76,7 +88,7 @@ export default function StudentLifePage() {
         breadcrumbs={[{ label: "Student Life" }]}
       />
 
-      {/* GALLERY GRID SHOWCASE (EDITORIAL IMAGE CARDS) */}
+      {/* GALLERY GRID SHOWCASE (EDITORIAL IMAGE CARDS WITH HOVER OVERLAY) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <SectionHeader
           badge="Campus Visual Tour"
@@ -85,27 +97,41 @@ export default function StudentLifePage() {
           subtitle="Explore the daily environment where our students turn raw fabric and ideas into commercial fashion lines."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {galleryCards.map((card, idx) => {
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={containerVariants}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+        >
+          {galleryCards.map((card) => {
             const CardIcon = card.icon;
             return (
               <motion.div
                 key={card.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.15 }}
+                variants={itemVariants}
                 whileHover={{ y: -6 }}
-                className="rounded-3xl bg-white border border-slate-200 shadow-xl overflow-hidden group flex flex-col justify-between"
+                className="rounded-3xl bg-white border border-slate-200 shadow-xl overflow-hidden group flex flex-col justify-between cursor-pointer"
               >
-                {/* Photo Header */}
-                <div className="relative h-64 overflow-hidden bg-slate-100">
+                {/* Photo Header with Dark Overlay & Title Reveal */}
+                <div className="relative h-72 overflow-hidden bg-slate-100">
                   <img
                     src={card.image}
                     alt={card.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                   />
-                  <div className="absolute top-4 left-4 text-xs font-bold px-3 py-1 rounded-full bg-white/90 text-navy-900 shadow-md backdrop-blur-md">
+
+                  {/* Dark Overlay fading in on hover */}
+                  <div className="absolute inset-0 bg-navy-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6 text-center">
+                    <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 space-y-2">
+                      <span className="text-xs uppercase font-extrabold tracking-widest text-gold-400">
+                        {card.category}
+                      </span>
+                      <h4 className="text-2xl font-black text-white">{card.title}</h4>
+                    </div>
+                  </div>
+
+                  <div className="absolute top-4 left-4 text-xs font-bold px-3 py-1 rounded-full bg-white/90 text-navy-900 shadow-md backdrop-blur-md z-10">
                     {card.category}
                   </div>
                 </div>
@@ -135,12 +161,18 @@ export default function StudentLifePage() {
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </section>
 
       {/* STUDENT HIGHLIGHTS & COMMUNITY */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-10 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-8">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.97 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="p-10 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-8"
+        >
           <div className="text-center space-y-2 max-w-2xl mx-auto">
             <span className="text-xs font-bold text-gold-600 uppercase tracking-widest">
               Student Centric Approach
@@ -150,24 +182,33 @@ export default function StudentLifePage() {
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={containerVariants}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          >
             {studentHighlights.map((item, idx) => (
-              <div
+              <motion.div
                 key={idx}
-                className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-2"
+                variants={itemVariants}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 cursor-pointer"
               >
                 <h4 className="text-lg font-bold text-navy-900">{item.title}</h4>
                 <p className="text-xs text-slate-600 leading-relaxed font-normal">{item.desc}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           <div className="text-center pt-4">
-            <Button href="/admissions" icon={Sparkles}>
+            <Button href="/admissions" icon={ArrowRight} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
               Become Part of Our Community
             </Button>
           </div>
-        </div>
+        </motion.div>
       </section>
     </div>
   );

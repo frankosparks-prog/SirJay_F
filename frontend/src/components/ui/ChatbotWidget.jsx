@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageSquare, X, Send, Sparkles, User, ShieldCheck } from "lucide-react";
+import { MessageSquare, X, Send, Zap, User, ShieldCheck } from "lucide-react";
 
 const faqData = [
   {
@@ -70,7 +70,7 @@ export default function ChatbotWidget() {
           </div>
           <div className="text-left hidden sm:block">
             <div className="text-xs font-bold text-white flex items-center gap-1">
-              Ask Sir Jay Desk <Sparkles className="w-3 h-3 text-gold-400" />
+              Ask Sir Jay Desk <Zap className="w-3 h-3 text-gold-400" />
             </div>
             <div className="text-[10px] text-slate-300">Online Help Assistant</div>
           </div>

@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import {
   CheckCircle2,
   Send,
-  Sparkles,
   Calendar,
   Clock,
   FileCheck,
@@ -13,6 +13,11 @@ import {
 import SectionHeader from "@/components/ui/SectionHeader";
 import PageHero from "@/components/ui/PageHero";
 import Button from "@/components/ui/Button";
+import StickyBackgroundSection from "@/components/ui/StickyBackgroundSection";
+
+const GlassAccent = dynamic(() => import("@/components/3d/GlassAccent"), {
+  ssr: false,
+});
 
 const roadmapSteps = [
   { step: "01", title: "Explore Course", desc: "Select your preferred track in Fashion Design, ICT, or Media Arts." },
@@ -29,6 +34,19 @@ const admissionChecklist = [
   "KCSE / KCPE Result Slip or KNEC Certificate",
   "Duly completed Sir Jay Registration Form",
 ];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { delayChildren: 0.1, staggerChildren: 0.12 },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { duration: 0.4 } },
+};
 
 export default function AdmissionsPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -48,7 +66,7 @@ export default function AdmissionsPage() {
   };
 
   return (
-    <div className="space-y-20 pb-20">
+    <div className="space-y-20 pb-20 overflow-hidden">
       {/* PAGE HERO BANNER */}
       <PageHero
         badge="Admissions & Enrollment"
@@ -59,8 +77,13 @@ export default function AdmissionsPage() {
         breadcrumbs={[{ label: "Admissions" }]}
       />
 
-      {/* 6-STEP ROADMAP TIMELINE */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      {/* 6-STEP ROADMAP TIMELINE WITH 3D GRADUATION CAP ACCENT */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative">
+        {/* Floating 3D Graduation Cap Accent */}
+        <div className="absolute -top-14 -right-10 hidden md:block pointer-events-none z-0">
+          <GlassAccent type="cap" className="w-64 h-64 opacity-75" />
+        </div>
+
         <SectionHeader
           badge="Admissions Roadmap"
           title="Your 6-Step Journey to"
@@ -68,16 +91,19 @@ export default function AdmissionsPage() {
           subtitle="From your first inquiry to stepping into our equipped design studios."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={containerVariants}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10"
+        >
           {roadmapSteps.map((item, idx) => (
             <motion.div
               key={item.step}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.1 }}
+              variants={itemVariants}
               whileHover={{ y: -4 }}
-              className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md space-y-3 relative group"
+              className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md space-y-3 relative group cursor-pointer"
             >
               <div className="flex justify-between items-center">
                 <span className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-navy-800 font-black text-sm group-hover:bg-gold-500 group-hover:text-navy-950 transition-colors">
@@ -97,15 +123,18 @@ export default function AdmissionsPage() {
               </p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
-      {/* FORM & REQUIREMENTS SECTION */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      {/* STICKY PARALLAX BACKGROUND OVERLAY: FORM & REQUIREMENTS SECTION */}
+      <StickyBackgroundSection
+        bgImage="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1920&auto=format&fit=crop"
+        overlayColor="bg-navy-950/45"
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start relative z-10">
           {/* Left Column: Requirements & Info */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-6">
+            <div className="p-8 rounded-3xl bg-white/95 backdrop-blur-md border border-slate-200 shadow-2xl space-y-6 text-slate-900">
               <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
                 <FileCheck className="w-6 h-6 text-gold-600" />
                 <div>
@@ -124,7 +153,7 @@ export default function AdmissionsPage() {
               </ul>
             </div>
 
-            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md space-y-4">
+            <div className="p-6 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200 shadow-xl space-y-4 text-slate-900">
               <h4 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider flex items-center gap-2">
                 <Clock className="w-4 h-4 text-gold-600" />
                 Working & Operating Hours
@@ -146,14 +175,19 @@ export default function AdmissionsPage() {
             </div>
           </div>
 
-          {/* Right Column: Application Form */}
-          <div className="lg:col-span-7">
+          {/* Right Column: Application Form with 3D Academic Staff Accent */}
+          <div className="lg:col-span-7 relative">
+            {/* 3D Academic Staff Model Accent */}
+            <div className="absolute -top-12 -right-10 hidden sm:block pointer-events-none z-0">
+              <GlassAccent type="staff" className="w-56 h-56 opacity-80" />
+            </div>
+
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="p-8 md:p-10 rounded-3xl bg-white border border-slate-200 shadow-2xl space-y-6"
+              className="p-8 md:p-10 rounded-3xl bg-white/95 backdrop-blur-md border border-slate-200 shadow-2xl space-y-6 relative z-10 text-slate-900"
             >
               <div>
                 <span className="text-xs font-bold text-gold-600 uppercase tracking-widest block">
@@ -290,7 +324,7 @@ export default function AdmissionsPage() {
             </motion.div>
           </div>
         </div>
-      </section>
+      </StickyBackgroundSection>
     </div>
   );
 }

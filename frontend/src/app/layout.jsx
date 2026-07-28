@@ -1,4 +1,5 @@
 import { Poppins, Inter } from "next/font/google";
+import TopBar from "@/components/layout/TopBar";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WhatsAppWidget from "@/components/ui/WhatsAppWidget";
@@ -40,8 +41,14 @@ export default function RootLayout({ children }) {
       className={`${poppins.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-gold-500/30 selection:text-navy-950">
+        {/* Non-Sticky Announcement Bar */}
+        <TopBar />
+
+        {/* Sticky Glassmorphic Navbar */}
         <Navbar />
-        <main className="flex-grow pt-20">{children}</main>
+
+        <main className="flex-grow">{children}</main>
+
         <Footer />
 
         {/* Global Floating Widgets */}

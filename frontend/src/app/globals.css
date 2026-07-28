@@ -4,12 +4,13 @@
   --font-poppins: var(--font-poppins), system-ui, sans-serif;
   --font-inter: var(--font-inter), system-ui, sans-serif;
 
-  --color-navy-950: #071320;
-  --color-navy-900: #0c2033;
-  --color-navy-800: #14324e;
-  --color-navy-700: #1f4e79;
-  --color-navy-600: #2a6496;
-  --color-navy-500: #387bb2;
+  /* Upgraded Lighter, Vibrant Royal Navy Palette */
+  --color-navy-950: #112a46;
+  --color-navy-900: #1a3b5c;
+  --color-navy-800: #244c73;
+  --color-navy-700: #32628d;
+  --color-navy-600: #4278a6;
+  --color-navy-500: #5591c2;
 
   --color-gold-600: #b8860b;
   --color-gold-500: #d4af37;
@@ -31,9 +32,9 @@
   }
 }
 
-/* Light Editorial & Glassmorphism Utilities */
+/* Bright Glassmorphism & Light Editorial Utilities */
 .glass-panel-dark {
-  background: rgba(12, 32, 51, 0.9);
+  background: rgba(17, 42, 70, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(212, 175, 55, 0.2);
@@ -41,28 +42,28 @@
 
 .glass-card-light {
   background: #ffffff;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.05);
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 10px 30px -10px rgba(17, 42, 70, 0.06);
 }
 
 .glass-card-light-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .glass-card-light-hover:hover {
   border-color: rgba(212, 175, 55, 0.5);
-  box-shadow: 0 20px 40px -15px rgba(31, 78, 121, 0.12);
+  box-shadow: 0 20px 40px -15px rgba(26, 59, 92, 0.12);
   transform: translateY(-4px);
 }
 
 .text-gradient-gold {
-  background: linear-gradient(135deg, #1f4e79 0%, #b8860b 60%, #d4af37 100%);
+  background: linear-gradient(135deg, #F59E0B 0%, #D4AF37 50%, #F3E09B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-gradient-navy {
-  background: linear-gradient(135deg, #0c2033 0%, #1f4e79 100%);
+  background: linear-gradient(135deg, #112a46 0%, #32628d 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -90,7 +91,7 @@ html {
   background: #f8fafc;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1f4e79;
+  background: #244c73;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import {
   BookOpen,
   Clock,
@@ -8,7 +9,6 @@ import {
   CheckCircle2,
   Scissors,
   Award,
-  Sparkles,
   ArrowRight,
   Shirt,
   Music,
@@ -19,6 +19,11 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import PageHero from "@/components/ui/PageHero";
 import CourseTable from "@/components/ui/CourseTable";
 import Button from "@/components/ui/Button";
+import StickyBackgroundSection from "@/components/ui/StickyBackgroundSection";
+
+const GlassAccent = dynamic(() => import("@/components/3d/GlassAccent"), {
+  ssr: false,
+});
 
 const fashionDurations = [
   { level: "Beginner", duration: "3 Months", desc: "Machine setup, straight stitching, body measurements, basic skirt & shirt pattern creation." },
@@ -48,22 +53,41 @@ const scheduleOptions = [
   { title: "Weekend Classes", time: "Saturday: 10:00 AM - 3:00 PM", desc: "Flexible intensive Saturday practical sessions for busy schedules.", badge: "Weekend" },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { delayChildren: 0.1, staggerChildren: 0.1 },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { duration: 0.4 } },
+};
+
 export default function AcademicsPage() {
   return (
-    <div className="space-y-20 pb-20">
+    <div className="space-y-20 pb-20 overflow-hidden">
       {/* PAGE HERO BANNER */}
       <PageHero
         badge="Academic Excellence & KNQF Framework"
         title="Sir Jay School of"
         titleHighlight="Fashion Design"
         subtitle="Our flagship curriculum combines 12 comprehensive units with flexible learning schedules and recognized KNQF progression pathways."
-        bgImage="https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?q=80&w=1920&auto=format&fit=crop"
+        bgImage="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800&auto=format&fit=crop"
         breadcrumbs={[{ label: "Academics" }]}
       />
 
       {/* INTUITIVE INTAKES BANNER */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-lg flex flex-col md:flex-row items-center justify-between gap-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="p-6 rounded-3xl bg-white border border-slate-200 shadow-lg flex flex-col md:flex-row items-center justify-between gap-4"
+        >
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-navy-700 font-bold shrink-0">
               <Calendar className="w-6 h-6" />
@@ -76,14 +100,18 @@ export default function AcademicsPage() {
             </div>
           </div>
 
-          <Button href="/admissions" size="sm" icon={Sparkles}>
+          <Button href="/admissions" size="sm" icon={Award}>
             Apply for Current Intake
           </Button>
-        </div>
+        </motion.div>
       </section>
 
-      {/* 4 FASHION COURSE DURATIONS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      {/* 4 FASHION COURSE DURATIONS WITH 3D GRADUATION CAP ACCENT */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 relative">
+        <div className="absolute -top-16 -left-12 hidden lg:block pointer-events-none z-0">
+          <GlassAccent type="cap" className="w-64 h-64 opacity-75" />
+        </div>
+
         <SectionHeader
           badge="Progressive Modules"
           title="Fashion Design Track"
@@ -91,16 +119,19 @@ export default function AcademicsPage() {
           subtitle="Study at your own pace. Each module runs for 3 months and builds directly toward complete professional mastery."
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={containerVariants}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10"
+        >
           {fashionDurations.map((item, idx) => (
             <motion.div
               key={item.level}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.1 }}
+              variants={itemVariants}
               whileHover={{ y: -4 }}
-              className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md space-y-3 flex flex-col justify-between"
+              className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md space-y-3 flex flex-col justify-between cursor-pointer"
             >
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
@@ -121,42 +152,56 @@ export default function AcademicsPage() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
-      {/* 12 CORE UNITS SYLLABUS GRID */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        <SectionHeader
-          badge="Complete Syllabus"
-          title="12 Units Covered in"
-          titleHighlight="Fashion & Apparel"
-          subtitle="Every unit is structured with 70% practical workshop output and 30% business application."
-        />
+      {/* STICKY PARALLAX BACKGROUND OVERLAY: 12 CORE UNITS SYLLABUS GRID WITH 3D ACADEMIC BOOK */}
+      <StickyBackgroundSection
+        bgImage="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop"
+        overlayColor="bg-navy-950/45"
+      >
+        <div className="space-y-12 relative">
+          {/* Floating 3D Academic Book */}
+          <div className="absolute -top-14 -right-12 hidden lg:block pointer-events-none z-0">
+            <GlassAccent type="book" className="w-64 h-64 opacity-80" />
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {all12Units.map((unit, idx) => (
-            <motion.div
-              key={unit.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.08 }}
-              whileHover={{ y: -3 }}
-              className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3 hover:border-gold-500/50 transition-all"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-gold-500/10 text-gold-600 font-bold text-xs flex items-center justify-center shrink-0">
-                  {idx + 1}
+          <SectionHeader
+            dark={true}
+            badge="Complete Syllabus"
+            title="12 Units Covered in"
+            titleHighlight="Fashion & Apparel"
+            subtitle="Every unit is structured with 70% practical workshop output and 30% business application."
+          />
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={containerVariants}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10"
+          >
+            {all12Units.map((unit, idx) => (
+              <motion.div
+                key={unit.title}
+                variants={itemVariants}
+                whileHover={{ y: -4 }}
+                className="p-6 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200 shadow-2xl space-y-3 hover:border-gold-500/50 transition-all cursor-pointer text-slate-900"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-gold-500/10 text-gold-600 font-bold text-xs flex items-center justify-center shrink-0">
+                    {idx + 1}
+                  </div>
+                  <h4 className="text-base font-extrabold text-slate-900">{unit.title}</h4>
                 </div>
-                <h4 className="text-base font-extrabold text-slate-900">{unit.title}</h4>
-              </div>
-              <p className="text-xs text-slate-600 leading-relaxed font-normal pl-11">
-                {unit.desc}
-              </p>
-            </motion.div>
-          ))}
+                <p className="text-xs text-slate-600 leading-relaxed font-normal pl-11">
+                  {unit.desc}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
-      </section>
+      </StickyBackgroundSection>
 
       {/* KNQF PROGRESSION TABLE */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
@@ -178,16 +223,19 @@ export default function AcademicsPage() {
           subtitle="Choose the schedule that fits your daily routine without sacrificing hands-on instructor time."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {scheduleOptions.map((option, idx) => (
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={containerVariants}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        >
+          {scheduleOptions.map((option) => (
             <motion.div
               key={option.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.15 }}
+              variants={itemVariants}
               whileHover={{ y: -4 }}
-              className="p-8 rounded-3xl bg-white border border-slate-200 shadow-lg space-y-4 relative"
+              className="p-8 rounded-3xl bg-white border border-slate-200 shadow-lg space-y-4 relative cursor-pointer"
             >
               <div className="flex justify-between items-center">
                 <span className="text-xs font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-700">
@@ -205,7 +253,7 @@ export default function AcademicsPage() {
               <p className="text-xs text-slate-600 leading-relaxed font-normal">{option.desc}</p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
     </div>
   );

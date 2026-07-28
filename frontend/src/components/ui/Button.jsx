@@ -13,6 +13,9 @@ export default function Button({
   icon: Icon,
   iconPosition = "right",
   type = "button",
+  whileHover = { scale: 1.03, y: -2 },
+  whileTap = { scale: 0.97 },
+  whileFocus,
   ...props
 }) {
   const baseStyles =
@@ -52,8 +55,9 @@ export default function Button({
   if (href) {
     return (
       <motion.div
-        whileHover={{ scale: 1.03, y: -2 }}
-        whileTap={{ scale: 0.97 }}
+        whileHover={whileHover}
+        whileTap={whileTap}
+        whileFocus={whileFocus}
         className="inline-block"
       >
         <Link href={href} className={combinedClass} {...props}>
@@ -65,8 +69,9 @@ export default function Button({
 
   return (
     <motion.button
-      whileHover={{ scale: 1.03, y: -2 }}
-      whileTap={{ scale: 0.97 }}
+      whileHover={whileHover}
+      whileTap={whileTap}
+      whileFocus={whileFocus}
       type={type}
       onClick={onClick}
       className={combinedClass}

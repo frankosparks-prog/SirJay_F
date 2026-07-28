@@ -5,7 +5,6 @@ import {
   Calendar,
   Clock,
   MapPin,
-  Sparkles,
   BellRing,
 } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
@@ -115,7 +114,7 @@ export default function EventsPage() {
               </div>
 
               <div className="pt-4 border-t border-slate-100">
-                <Button href="/admissions" size="sm" className="w-full" icon={Sparkles}>
+                <Button href="/admissions" size="sm" className="w-full" icon={BellRing}>
                   RSVP / Register Interest
                 </Button>
               </div>
@@ -138,7 +137,7 @@ export default function EventsPage() {
               </p>
             </div>
           </div>
-          <Button href="/contact" variant="outline">
+          <Button href="/contact" variant="outline" className="bg-gold-500 text-navy-950 hover:bg-gold-600 hover:text-white cursor-pointer">  
             Contact Admissions Desk
           </Button>
         </div>

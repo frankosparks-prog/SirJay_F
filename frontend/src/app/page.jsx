@@ -1,11 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import dynamic from "next/dynamic";
 import {
-  Sparkles,
+  Zap,
   ArrowRight,
   Scissors,
-  Laptop,
   GraduationCap,
   Users,
   Briefcase,
@@ -14,34 +15,22 @@ import {
   CheckCircle2,
   Clock,
   Shirt,
-  Sparkle,
   Music,
   Camera,
   Coffee,
+  Palette,
+  ShieldCheck,
+  BookOpen,
 } from "lucide-react";
-import dynamic from "next/dynamic";
 import Button from "@/components/ui/Button";
 import SectionHeader from "@/components/ui/SectionHeader";
 import CourseTable from "@/components/ui/CourseTable";
 import Counter from "@/components/ui/Counter";
-import Link from "next/link";
+import StickyBackgroundSection from "@/components/ui/StickyBackgroundSection";
 
-const FloatingCanvas = dynamic(
-  () => import("@/components/3d/FloatingCanvas"),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="w-full h-[380px] lg:h-[480px] flex items-center justify-center rounded-3xl bg-navy-950 border border-gold-500/20">
-        <div className="flex flex-col items-center gap-3">
-          <div className="w-12 h-12 rounded-full border-4 border-gold-500 border-t-transparent animate-spin"></div>
-          <span className="text-xs font-semibold uppercase tracking-wider text-gold-400">
-            Simulating Silk 3D Studio...
-          </span>
-        </div>
-      </div>
-    ),
-  }
-);
+const GlassAccent = dynamic(() => import("@/components/3d/GlassAccent"), {
+  ssr: false,
+});
 
 const stats = [
   { label: "Graduated Alumni", value: "1,800", suffix: "+", icon: Users },
@@ -97,102 +86,154 @@ const whyChooseCards = [
 ];
 
 const comingSoonDepartments = [
-  { name: "Cosmetology & Beauty", desc: "Skincare, hair design, spa & aesthetic therapies.", icon: Sparkle },
+  { name: "Cosmetology & Beauty", desc: "Skincare, hair design, spa & aesthetic therapies.", icon: Palette },
   { name: "Deejay School", desc: "Digital mixing, sound engineering & live performance.", icon: Music },
   { name: "Modeling School", desc: "Runway poise, commercial photography & portfolio build.", icon: Camera },
   { name: "Hospitality Courses", desc: "Customer care, event catering & front office operations.", icon: Coffee },
 ];
 
+const easeCurve = [0.22, 1, 0.36, 1];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.1,
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 25, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { duration: 0.5, ease: easeCurve } },
+};
+
 export default function HomePage() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  const heroParallax = useTransform(scrollYProgress, [0, 0.3], [0, 80]);
+
   return (
-    <div className="space-y-24 pb-20">
-      {/* HERO SECTION (DARK NAVY ACCENT) */}
-      <section className="relative min-h-[85vh] flex items-center bg-gradient-to-b from-navy-950 via-navy-900 to-navy-950 overflow-hidden pt-8 pb-16 text-white border-b border-gold-500/20">
-        <div className="absolute top-1/4 left-10 w-96 h-96 bg-gold-500/10 blur-[120px] rounded-full pointer-events-none"></div>
+    <div ref={containerRef} className="space-y-24 pb-20 overflow-hidden">
+      {/* CINEMATIC VIDEO HERO */}
+      <section className="relative min-h-[88vh] flex items-center justify-center overflow-hidden text-white border-b border-gold-500/20">
+        {/* Responsive HTML5 Video Background */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover scale-105"
+          poster="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1920&auto=format&fit=crop"
+        >
+          <source src="./SirJay.mp4" type="video/mp4" />
+        </video>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Hero Left */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7 }}
-              className="lg:col-span-7 space-y-6 text-center lg:text-left"
+        {/* Sophisticated Dark Overlay */}
+        <div className="absolute inset-0 bg-navy-950/65 mix-blend-multiply z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/40 to-transparent z-10"></div>
+
+        {/* Hero Content with Framer Motion Parallax & Slide Reveals */}
+        <motion.div
+          style={{ y: heroParallax }}
+          className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center relative z-20 space-y-8 py-20"
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: easeCurve }}
+            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-panel-dark text-gold-300 text-xs md:text-sm font-semibold shadow-2xl border border-gold-500/30"
+          >
+            <Zap className="w-4 h-4 text-gold-400 animate-pulse" />
+            <span>Admissions Open for 2025/2026</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+          </motion.div>
+
+          <div className="space-y-4">
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="text-xs sm:text-sm uppercase font-extrabold tracking-widest text-gold-400 block"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel-dark text-gold-300 text-xs md:text-sm font-semibold shadow-lg">
-                <Sparkles className="w-4 h-4 text-gold-400 animate-spin" />
-                <span>Admissions Open for 2025/2026</span>
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-              </div>
+              Sir Jay Training Institute • Nanyuki, Kenya
+            </motion.span>
 
-              <div className="space-y-2">
-                <span className="text-xs uppercase font-extrabold tracking-widest text-gold-400 block">
-                  Sir Jay Training Institute • Nanyuki, Kenya
-                </span>
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1]">
-                  Achieving Greatness <br />
-                  <span className="text-gradient-gold">Together.</span>
-                </h1>
-                <p className="text-sm font-medium text-slate-300 tracking-wide uppercase">
-                  Motto: <span className="text-gold-300">Quality, integrity & style</span>
-                </p>
-              </div>
-
-              <p className="text-base sm:text-lg text-slate-200 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal">
-                &ldquo;Fashion your Future with us. Learn from the best and create your own design style.&rdquo;
-              </p>
-
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
-                <Button href="/admissions" size="lg" icon={ArrowRight}>
-                  Apply Today
-                </Button>
-                <Button href="/academics" variant="outline" size="lg" icon={Shirt}>
-                  Explore Programs
-                </Button>
-              </div>
-
-              <div className="pt-6 grid grid-cols-2 sm:grid-cols-3 gap-3 border-t border-slate-800 text-xs text-slate-300">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-gold-400 shrink-0" />
-                  <span>TVETA Registered</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-gold-400 shrink-0" />
-                  <span>Day, Evening & Weekend</span>
-                </div>
-                <div className="flex items-center gap-2 col-span-2 sm:col-span-1">
-                  <Award className="w-4 h-4 text-gold-400 shrink-0" />
-                  <span>NITA & KNQF Certified</span>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Hero Right: 3D Silk Canvas */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="lg:col-span-5 w-full"
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.7, ease: easeCurve }}
+              className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.08]"
             >
-              <FloatingCanvas />
-            </motion.div>
+              Achieving Greatness <br />
+              <span className="text-gradient-gold">Together.</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              className="text-lg sm:text-2xl font-light text-slate-100 max-w-3xl mx-auto italic tracking-wide"
+            >
+              &ldquo;Fashion your Future with us. Learn from the best and create your own design style.&rdquo;
+            </motion.p>
           </div>
-        </div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            className="flex flex-wrap items-center justify-center gap-4 pt-4"
+          >
+            <Button href="/admissions" size="lg" icon={ArrowRight}>
+              Apply Today
+            </Button>
+            <Button href="/academics" variant="outline" size="lg" icon={Shirt}>
+              Explore Programs
+            </Button>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7 }}
+            className="pt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-300 font-medium"
+          >
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-gold-400 shrink-0" />
+              <span>TVETA Registered</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-gold-400 shrink-0" />
+              <span>Day, Evening & Weekend</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Award className="w-4 h-4 text-gold-400 shrink-0" />
+              <span>NITA & KNQF Certified</span>
+            </div>
+          </motion.div>
+        </motion.div>
       </section>
 
-      {/* ANIMATED STATS BAR (LIGHT EDITORIAL) */}
+      {/* ANIMATED STATS BAR */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={containerVariants}
           className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 rounded-3xl bg-white border border-slate-200 shadow-xl"
         >
           {stats.map((stat) => {
             const IconComp = stat.icon;
             return (
-              <div key={stat.label} className="text-center space-y-2 group">
+              <motion.div key={stat.label} variants={itemVariants} className="text-center space-y-2 group">
                 <div className="w-12 h-12 mx-auto rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center text-navy-700 group-hover:bg-gold-500 group-hover:text-navy-950 transition-all duration-300 shadow-sm">
                   <IconComp className="w-6 h-6 stroke-[2]" />
                 </div>
@@ -202,72 +243,85 @@ export default function HomePage() {
                 <div className="text-xs sm:text-sm text-slate-600 font-medium">
                   {stat.label}
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </motion.div>
       </section>
 
-      {/* WHY CHOOSE US (EDITORIAL CARDS WITH IMAGES) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        <SectionHeader
-          badge="The Sir Jay Advantage"
-          title="Why Students Choose"
-          titleHighlight="Sir Jay Institute"
-          subtitle="We combine practical hands-on workshop training with real business acumen so every graduate steps into the market ready to produce."
-        />
+      {/* STICKY BACKGROUND PARALLAX OVERLAY: WHY CHOOSE US */}
+      <StickyBackgroundSection
+        bgImage="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800&auto=format&fit=crop"
+        overlayColor="bg-navy-950/45"
+      >
+        <div className="space-y-12">
+          <SectionHeader
+            dark={true}
+            badge="The Sir Jay Advantage"
+            title="Why Students Choose"
+            titleHighlight="Sir Jay Institute"
+            subtitle="We combine practical hands-on workshop training with real business acumen so every graduate steps into the market ready to produce."
+          />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {whyChooseCards.map((card, idx) => {
-            const CardIcon = card.icon;
-            return (
-              <motion.div
-                key={card.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.15 }}
-                whileHover={{ y: -6 }}
-                className="rounded-3xl bg-white border border-slate-200 overflow-hidden shadow-lg flex flex-col justify-between group"
-              >
-                {/* Editorial Card Image */}
-                <div className="relative h-48 overflow-hidden bg-slate-100">
-                  <img
-                    src={card.image}
-                    alt={card.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 right-4 text-xs font-bold px-3 py-1 rounded-full bg-white/90 text-navy-900 shadow-md backdrop-blur-md">
-                    {card.tag}
-                  </div>
-                </div>
-
-                <div className="p-7 space-y-4 flex-1 flex flex-col justify-between">
-                  <div className="space-y-3">
-                    <div className="w-10 h-10 rounded-xl bg-slate-100 text-navy-700 flex items-center justify-center font-bold">
-                      <CardIcon className="w-5 h-5" />
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+            variants={containerVariants}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          >
+            {whyChooseCards.map((card) => {
+              const CardIcon = card.icon;
+              return (
+                <motion.div
+                  key={card.title}
+                  variants={itemVariants}
+                  whileHover={{ y: -6 }}
+                  className="rounded-3xl bg-white/95 backdrop-blur-md border border-slate-200 overflow-hidden shadow-2xl flex flex-col justify-between group cursor-pointer"
+                >
+                  <div className="relative h-48 overflow-hidden bg-slate-100">
+                    <img
+                      src={card.image}
+                      alt={card.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-4 right-4 text-xs font-bold px-3 py-1 rounded-full bg-white/90 text-navy-900 shadow-md backdrop-blur-md">
+                      {card.tag}
                     </div>
-                    <h3 className="text-xl font-extrabold text-slate-900 group-hover:text-navy-700 transition-colors">
-                      {card.title}
-                    </h3>
-                    <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                      {card.description}
-                    </p>
                   </div>
 
-                  <div className="pt-4 border-t border-slate-100 flex items-center text-xs font-bold text-navy-700 gap-1.5">
-                    <span>Explore this facility</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <div className="p-7 space-y-4 flex-1 flex flex-col justify-between">
+                    <div className="space-y-3">
+                      <div className="w-10 h-10 rounded-xl bg-slate-100 text-navy-700 flex items-center justify-center font-bold">
+                        <CardIcon className="w-5 h-5" />
+                      </div>
+                      <h3 className="text-xl font-extrabold text-slate-900 group-hover:text-navy-700 transition-colors">
+                        {card.title}
+                      </h3>
+                      <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                        {card.description}
+                      </p>
+                    </div>
+
+                    <div className="pt-4 border-t border-slate-100 flex items-center text-xs font-bold text-navy-700 gap-1.5">
+                      <span>Explore this facility</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            );
-          })}
+                </motion.div>
+              );
+            })}
+          </motion.div>
         </div>
-      </section>
+      </StickyBackgroundSection>
 
-      {/* FEATURED PROGRAM: SCHOOL OF FASHION DESIGN */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      {/* FEATURED PROGRAM: SCHOOL OF FASHION DESIGN WITH 3D ACADEMIC BOOK ACCENT */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 relative">
+        {/* Floating 3D Academic Book Accent */}
+        <div className="absolute -top-16 -right-12 hidden lg:block pointer-events-none z-0">
+          <GlassAccent type="book" className="w-64 h-64 opacity-70" />
+        </div>
+
         <SectionHeader
           badge="Flagship Department"
           title="Sir Jay School of"
@@ -275,17 +329,19 @@ export default function HomePage() {
           subtitle="From zero experience to crafting bespoke suits and contemporary apparel in 4 progressive 3-month modules."
         />
 
-        {/* 4 Course Durations */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={containerVariants}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10"
+        >
           {fashionTiers.map((tier, idx) => (
             <motion.div
               key={tier.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.1 }}
+              variants={itemVariants}
               whileHover={{ y: -4 }}
-              className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md space-y-3 flex flex-col justify-between"
+              className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md space-y-3 flex flex-col justify-between cursor-pointer"
             >
               <div className="space-y-2">
                 <span className="text-xs font-bold text-gold-600 uppercase tracking-wider">
@@ -304,47 +360,64 @@ export default function HomePage() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        {/* 12 Core Units Covered Grid */}
-        <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-6">
+        {/* 12 Core Units Grid */}
+        <div className="p-8 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-6 relative z-10">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
-            <div>
-              <h3 className="text-xl font-extrabold text-slate-900">12 Core Units Covered</h3>
-              <p className="text-xs text-slate-500 mt-1">
-                Curriculum tested and recognized in Kenya and internationally.
-              </p>
+            <div className="flex items-center gap-3">
+              <BookOpen className="w-6 h-6 text-gold-600 shrink-0" />
+              <div>
+                <h3 className="text-xl font-extrabold text-slate-900">12 Core Units Covered</h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Curriculum tested and recognized in Kenya and internationally.
+                </p>
+              </div>
             </div>
             <Button href="/academics" size="sm" variant="outline" icon={ArrowRight}>
               View Full Syllabus
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={containerVariants}
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 text-xs"
+          >
             {coreUnits.map((unit, idx) => (
-              <div
+              <motion.div
                 key={unit}
+                variants={itemVariants}
                 className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 font-medium hover:border-gold-500 transition-colors"
               >
                 <span className="w-5 h-5 rounded-full bg-gold-500/20 text-gold-600 flex items-center justify-center font-bold text-[10px] shrink-0">
                   {idx + 1}
                 </span>
                 <span>{unit}</span>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* KNQF TABLE EMBED */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      {/* KNQF TABLE EMBED WITH 3D ACADEMIC STAFF ACCENT */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 relative">
+        {/* Floating 3D Academic Staff Accent */}
+        <div className="absolute -top-12 -left-10 hidden lg:block pointer-events-none z-0">
+          <GlassAccent type="staff" className="w-64 h-64 opacity-70" />
+        </div>
+
         <SectionHeader
           badge="National Progression"
           title="TVETA & KNQF Qualification"
           titleHighlight="Pathways"
           subtitle="Understand how your studies at Sir Jay Institute build up towards national certificates and university progression."
         />
-        <CourseTable />
+        <div className="relative z-10">
+          <CourseTable />
+        </div>
       </section>
 
       {/* COMING SOON DEPARTMENTS */}
@@ -356,17 +429,21 @@ export default function HomePage() {
           subtitle="Sir Jay Institute is growing to provide comprehensive vocational training across multiple creative industries."
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {comingSoonDepartments.map((dept, idx) => {
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={containerVariants}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
+          {comingSoonDepartments.map((dept) => {
             const DeptIcon = dept.icon;
             return (
               <motion.div
                 key={dept.name}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md space-y-3 hover:border-gold-500/50 transition-all"
+                variants={itemVariants}
+                whileHover={{ y: -4 }}
+                className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md space-y-3 hover:border-gold-500/50 transition-all cursor-pointer"
               >
                 <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-navy-700">
                   <DeptIcon className="w-5 h-5" />
@@ -379,13 +456,24 @@ export default function HomePage() {
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </section>
 
-      {/* CALL TO ACTION BANNER */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-10 md:p-14 rounded-3xl bg-gradient-to-r from-navy-950 via-navy-900 to-navy-950 text-white shadow-2xl border border-gold-500/30 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="space-y-4 max-w-2xl">
+      {/* CALL TO ACTION BANNER WITH 3D GRADUATION CAP ACCENT */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: easeCurve }}
+          className="p-10 md:p-14 rounded-3xl bg-gradient-to-r from-navy-950 via-navy-900 to-navy-950 text-white shadow-2xl border border-gold-500/30 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden"
+        >
+          {/* Floating 3D Graduation Cap */}
+          <div className="absolute -bottom-10 -right-10 hidden sm:block pointer-events-none opacity-60 z-0">
+            <GlassAccent type="cap" className="w-64 h-64" />
+          </div>
+
+          <div className="space-y-4 max-w-2xl relative z-10">
             <span className="text-xs font-extrabold uppercase text-gold-400 tracking-widest">
               Ready to Begin Your Career?
             </span>
@@ -396,15 +484,15 @@ export default function HomePage() {
               Classes available for Morning, Evening, and Saturday Weekend schedules in Nanyuki. Flexible fee installments available.
             </p>
           </div>
-          <div className="shrink-0 flex flex-col sm:flex-row gap-4">
-            <Button href="/admissions" size="lg" icon={Sparkles}>
+          <div className="shrink-0 flex flex-col sm:flex-row gap-4 relative z-10">
+            <Button href="/admissions" size="lg" icon={Zap}>
               Enroll Online Now
             </Button>
             <Button href="/contact" variant="outline" size="lg">
               Contact Campus
             </Button>
           </div>
-        </div>
+        </motion.div>
       </section>
     </div>
   );
