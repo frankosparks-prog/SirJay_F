@@ -24,6 +24,10 @@ const GlassAccent = dynamic(() => import("@/components/3d/GlassAccent"), {
   ssr: false,
 });
 
+const TargetCursor = dynamic(() => import("@/components/ui/TargetCursor"), {
+  ssr: false,
+});
+
 const coreValues = [
   { title: "Integrity", desc: "Upholding high moral standards, transparency, and ethical conduct in all institutional operations.", icon: Shield },
   { title: "Excellence", desc: "Striving for uncompromised quality in garment execution, teaching, and practical output.", icon: Award },
@@ -57,6 +61,12 @@ const itemVariants = {
 export default function AboutPage() {
   return (
     <div className="space-y-20 pb-20 overflow-hidden">
+      <TargetCursor
+        targetSelector=".cursor-target"
+        cursorColor="#D4AF37"
+        cursorColorOnTarget="#F59E0B"
+      />
+
       {/* PAGE HERO BANNER */}
       <PageHero
         badge="About Sir Jay Institute"
@@ -238,7 +248,7 @@ export default function AboutPage() {
                 key={val.title}
                 variants={itemVariants}
                 whileHover={{ y: -4 }}
-                className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md space-y-3 cursor-pointer"
+                className="cursor-target p-6 rounded-2xl bg-white border border-slate-200 shadow-md space-y-3 cursor-pointer"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-slate-100 text-navy-700 flex items-center justify-center font-bold shrink-0">

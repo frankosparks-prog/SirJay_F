@@ -1,6 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
-  GraduationCap,
   MapPin,
   Phone,
   Mail,
@@ -20,9 +20,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800/80">
           {/* Column 1: Brand & Identity */}
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center text-navy-950 shadow-md">
-                <GraduationCap className="w-6 h-6 stroke-[2.5]" />
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="w-11 h-11 rounded-xl overflow-hidden shadow-md relative border border-gold-500/30 bg-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300">
+                <Image
+                  src="/SJLogo.jpeg"
+                  alt="Sir Jay Institute Logo"
+                  width={44}
+                  height={44}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="flex flex-col">
                 <span className="text-lg font-black tracking-tight text-white">
@@ -64,7 +70,7 @@ export default function Footer() {
                 { label: "About Us", href: "/about" },
                 { label: "Academics & Courses", href: "/academics" },
                 { label: "Admissions & Enrollment", href: "/admissions" },
-                { label: "Student Life & Gallery", href: "/student-life" },
+                { label: "Student Life", href: "/student-life" },
                 { label: "Events & News", href: "/events" },
                 { label: "Contact & Location", href: "/contact" },
               ].map((item) => (

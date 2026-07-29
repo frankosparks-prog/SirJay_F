@@ -19,6 +19,10 @@ const GlassAccent = dynamic(() => import("@/components/3d/GlassAccent"), {
   ssr: false,
 });
 
+const TargetCursor = dynamic(() => import("@/components/ui/TargetCursor"), {
+  ssr: false,
+});
+
 const roadmapSteps = [
   { step: "01", title: "Explore Course", desc: "Select your preferred track in Fashion Design, ICT, or Media Arts." },
   { step: "02", title: "Apply Online", desc: "Fill the application form below or visit our Nanyuki campus desk." },
@@ -49,7 +53,6 @@ const itemVariants = {
 };
 
 export default function AdmissionsPage() {
-  const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
@@ -59,6 +62,7 @@ export default function AdmissionsPage() {
     preferredIntake: "January Intake",
     schedulePreference: "Day Class (9am-5pm)",
   });
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,6 +71,12 @@ export default function AdmissionsPage() {
 
   return (
     <div className="space-y-20 pb-20 overflow-hidden">
+      <TargetCursor
+        targetSelector=".cursor-target"
+        cursorColor="#D4AF37"
+        cursorColorOnTarget="#F59E0B"
+      />
+
       {/* PAGE HERO BANNER */}
       <PageHero
         badge="Admissions & Enrollment"
@@ -225,7 +235,7 @@ export default function AdmissionsPage() {
                         placeholder="e.g. John Mwangi"
                         value={formData.fullName}
                         onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
+                        className="cursor-target w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
                       />
                     </div>
 
@@ -237,7 +247,7 @@ export default function AdmissionsPage() {
                         placeholder="e.g. +254 712 345 678"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
+                        className="cursor-target w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
                       />
                     </div>
                   </div>
@@ -249,7 +259,7 @@ export default function AdmissionsPage() {
                       placeholder="e.g. student@gmail.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
+                      className="cursor-target w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
                     />
                   </div>
 
@@ -259,7 +269,7 @@ export default function AdmissionsPage() {
                       <select
                         value={formData.intendedCourse}
                         onChange={(e) => setFormData({ ...formData, intendedCourse: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:border-gold-500"
+                        className="cursor-target w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:border-gold-500"
                       >
                         <option value="Fashion Design - Comprehensive">Sir Jay School of Fashion Design</option>
                         <option value="Artisan Trade Test (NITA)">Artisan Level 3 Trade Test</option>
@@ -274,7 +284,7 @@ export default function AdmissionsPage() {
                       <select
                         value={formData.educationLevel}
                         onChange={(e) => setFormData({ ...formData, educationLevel: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:border-gold-500"
+                        className="cursor-target w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:border-gold-500"
                       >
                         <option value="KCSE Certificate">KCSE Certificate</option>
                         <option value="KCPE Certificate">KCPE Certificate</option>
@@ -291,7 +301,7 @@ export default function AdmissionsPage() {
                       <select
                         value={formData.preferredIntake}
                         onChange={(e) => setFormData({ ...formData, preferredIntake: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:border-gold-500"
+                        className="cursor-target w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:border-gold-500"
                       >
                         <option value="January Intake">January Intake</option>
                         <option value="May Intake">May Intake</option>
@@ -305,7 +315,7 @@ export default function AdmissionsPage() {
                       <select
                         value={formData.schedulePreference}
                         onChange={(e) => setFormData({ ...formData, schedulePreference: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:border-gold-500"
+                        className="cursor-target w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:border-gold-500"
                       >
                         <option value="Day Class (9am-5pm)">Day Class (Mon-Fri 9am-5pm)</option>
                         <option value="Evening Class (5:30pm-8pm)">Evening Class (Mon-Fri 5:30pm-8pm)</option>
@@ -314,8 +324,8 @@ export default function AdmissionsPage() {
                     </div>
                   </div>
 
-                  <div className="pt-2">
-                    <Button type="submit" className="w-full" size="lg" icon={Send}>
+                  <div className="pt-2 cursor-target">
+                    <Button type="submit" className="w-full cursor-target" size="lg" icon={Send}>
                       Submit Application Now
                     </Button>
                   </div>

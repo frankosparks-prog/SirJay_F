@@ -19,25 +19,25 @@ export default function Button({
   ...props
 }) {
   const baseStyles =
-    "inline-flex items-center justify-center font-medium rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-navy-950 cursor-pointer select-none";
+    "inline-flex items-center justify-center font-bold rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-navy-950 cursor-pointer select-none";
 
   const variants = {
     primary:
-      "bg-gradient-to-r from-gold-500 via-gold-400 to-gold-500 text-navy-950 font-semibold shadow-lg shadow-gold-500/25 hover:shadow-gold-500/40 hover:brightness-105 border border-gold-300/40",
+      "bg-gradient-to-r from-gold-500 via-amber-400 to-gold-500 text-navy-950 font-extrabold tracking-wide shadow-lg shadow-gold-500/30 hover:shadow-gold-500/50 hover:brightness-105 border border-gold-600/50",
     secondary:
-      "bg-navy-700 hover:bg-navy-600 text-white shadow-lg shadow-navy-900/50 border border-navy-500/30",
+      "bg-navy-900 hover:bg-navy-950 text-white font-bold tracking-wide shadow-lg shadow-navy-950/30 border border-navy-800/80 hover:border-gold-500/50",
     outline:
-      "border-2 border-gold-500/80 text-gold-300 hover:bg-gold-500/10 hover:text-white hover:border-gold-400",
+      "bg-navy-900/95 text-gold-400 font-extrabold border-2 border-gold-500 hover:bg-gold-500 hover:text-navy-950 hover:border-gold-400 shadow-md backdrop-blur-sm",
     glass:
-      "glass-panel text-slate-100 hover:border-gold-500/40 hover:bg-navy-800/80 shadow-md",
+      "bg-navy-950/85 backdrop-blur-md text-white font-extrabold border border-gold-500/40 hover:border-gold-400 hover:bg-navy-900 shadow-md",
     ghost:
-      "text-slate-300 hover:text-gold-400 hover:bg-navy-800/40",
+      "text-navy-900 font-extrabold hover:text-gold-600 hover:bg-slate-100/80",
   };
 
   const sizes = {
-    sm: "text-xs px-3.5 py-1.5 gap-1.5",
+    sm: "text-xs px-4 py-2 gap-1.5",
     md: "text-sm px-5 py-2.5 gap-2",
-    lg: "text-base px-7 py-3.5 gap-2.5 font-semibold",
+    lg: "text-base px-7 py-3.5 gap-2.5 font-extrabold",
   };
 
   const content = (

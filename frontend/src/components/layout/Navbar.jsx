@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, GraduationCap, Phone, Award } from "lucide-react";
+import { Menu, X, Phone, Award } from "lucide-react";
 import Button from "@/components/ui/Button";
 
 const navLinks = [
@@ -46,8 +47,15 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           {/* Logo & Brand Title */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-navy-900 to-navy-800 flex items-center justify-center text-gold-400 shadow-md group-hover:scale-105 transition-transform duration-300">
-              <GraduationCap className="w-6 h-6 stroke-[2.5]" />
+            <div className="w-11 h-11 rounded-xl overflow-hidden shadow-md group-hover:scale-105 transition-transform duration-300 relative border border-gold-500/30 bg-white flex items-center justify-center shrink-0">
+              <Image
+                src="/SJLogo.jpeg"
+                alt="Sir Jay Institute Logo"
+                width={44}
+                height={44}
+                className="w-full h-full object-cover"
+                priority
+              />
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-black tracking-tight text-slate-900 group-hover:text-navy-800 transition-colors flex items-center gap-1.5">

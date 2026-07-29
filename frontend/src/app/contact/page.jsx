@@ -12,9 +12,14 @@ import {
   Building2,
   Navigation,
 } from "lucide-react";
+import dynamic from "next/dynamic";
 import SectionHeader from "@/components/ui/SectionHeader";
 import PageHero from "@/components/ui/PageHero";
 import Button from "@/components/ui/Button";
+
+const TargetCursor = dynamic(() => import("@/components/ui/TargetCursor"), {
+  ssr: false,
+});
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -33,6 +38,12 @@ export default function ContactPage() {
 
   return (
     <div className="space-y-20 pb-20">
+      <TargetCursor
+        targetSelector=".cursor-target"
+        cursorColor="#D4AF37"
+        cursorColorOnTarget="#F59E0B"
+      />
+
       {/* PAGE HERO BANNER */}
       <PageHero
         badge="Get In Touch With Us"
@@ -174,7 +185,7 @@ export default function ContactPage() {
                         placeholder="e.g. Mary Wanjiku"
                         value={formData.fullName}
                         onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
+                        className="cursor-target w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
                       />
                     </div>
 
@@ -186,7 +197,7 @@ export default function ContactPage() {
                         placeholder="e.g. +254 719 185 821"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
+                        className="cursor-target w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
                       />
                     </div>
                   </div>
@@ -200,7 +211,7 @@ export default function ContactPage() {
                         placeholder="e.g. mary@gmail.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
+                        className="cursor-target w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
                       />
                     </div>
 
@@ -209,7 +220,7 @@ export default function ContactPage() {
                       <select
                         value={formData.courseOfInterest}
                         onChange={(e) => setFormData({ ...formData, courseOfInterest: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:border-gold-500"
+                        className="cursor-target w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:outline-none focus:border-gold-500"
                       >
                         <option value="Fashion Design - Comprehensive">Sir Jay School of Fashion Design</option>
                         <option value="Artisan Trade Test Level 3">Artisan Level 3 Trade Test</option>
@@ -229,13 +240,15 @@ export default function ContactPage() {
                       placeholder="Write your questions here regarding intakes, fee structure, or directions..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
+                      className="cursor-target w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
                     ></textarea>
                   </div>
 
-                  <Button type="submit" className="w-full" size="lg" icon={Send}>
-                    Send Inquiry Now
-                  </Button>
+                  <div className="cursor-target">
+                    <Button type="submit" className="w-full cursor-target" size="lg" icon={Send}>
+                      Send Inquiry Now
+                    </Button>
+                  </div>
                 </form>
               )}
             </div>

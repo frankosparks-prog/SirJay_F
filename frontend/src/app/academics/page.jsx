@@ -25,6 +25,10 @@ const GlassAccent = dynamic(() => import("@/components/3d/GlassAccent"), {
   ssr: false,
 });
 
+const TargetCursor = dynamic(() => import("@/components/ui/TargetCursor"), {
+  ssr: false,
+});
+
 const fashionDurations = [
   { level: "Beginner", duration: "3 Months", desc: "Machine setup, straight stitching, body measurements, basic skirt & shirt pattern creation." },
   { level: "Intermediate", duration: "3 Months", desc: "Complex garment construction, collar & sleeve techniques, zipper insertions, fabric handling." },
@@ -69,6 +73,12 @@ const itemVariants = {
 export default function AcademicsPage() {
   return (
     <div className="space-y-20 pb-20 overflow-hidden">
+      <TargetCursor
+        targetSelector=".cursor-target"
+        cursorColor="#D4AF37"
+        cursorColorOnTarget="#F59E0B"
+      />
+
       {/* PAGE HERO BANNER */}
       <PageHero
         badge="Academic Excellence & KNQF Framework"
@@ -186,7 +196,7 @@ export default function AcademicsPage() {
                 key={unit.title}
                 variants={itemVariants}
                 whileHover={{ y: -4 }}
-                className="p-6 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200 shadow-2xl space-y-3 hover:border-gold-500/50 transition-all cursor-pointer text-slate-900"
+                className="cursor-target p-6 rounded-2xl bg-white/95 backdrop-blur-md border border-slate-200 shadow-2xl space-y-3 hover:border-gold-500/50 transition-all cursor-pointer text-slate-900"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-lg bg-gold-500/10 text-gold-600 font-bold text-xs flex items-center justify-center shrink-0">

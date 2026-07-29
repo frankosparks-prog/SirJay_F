@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { GraduationCap, Home, BookOpen, PhoneCall } from "lucide-react";
+import { Home, BookOpen, PhoneCall } from "lucide-react";
 import dynamic from "next/dynamic";
 import Button from "@/components/ui/Button";
 
@@ -27,9 +28,15 @@ export default function NotFound() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center text-navy-950 shadow-2xl border border-gold-400/40"
+          className="w-20 h-20 mx-auto rounded-3xl overflow-hidden bg-white shadow-2xl border border-gold-400/50 flex items-center justify-center relative shrink-0"
         >
-          <GraduationCap className="w-10 h-10 stroke-[2.5]" />
+          <Image
+            src="/SJLogo.jpeg"
+            alt="Sir Jay Logo"
+            width={80}
+            height={80}
+            className="w-full h-full object-cover"
+          />
         </motion.div>
 
         {/* 404 Numbers */}

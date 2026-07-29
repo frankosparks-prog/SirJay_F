@@ -32,6 +32,10 @@ const GlassAccent = dynamic(() => import("@/components/3d/GlassAccent"), {
   ssr: false,
 });
 
+const TargetCursor = dynamic(() => import("@/components/ui/TargetCursor"), {
+  ssr: false,
+});
+
 const stats = [
   { label: "Graduated Alumni", value: "1,800", suffix: "+", icon: Users },
   { label: "Professional Courses", value: "16", suffix: "+", icon: GraduationCap },
@@ -121,6 +125,12 @@ export default function HomePage() {
 
   return (
     <div ref={containerRef} className="space-y-24 pb-20 overflow-hidden">
+      <TargetCursor
+        targetSelector=".cursor-target"
+        cursorColor="#D4AF37"
+        cursorColorOnTarget="#F59E0B"
+      />
+
       {/* CINEMATIC VIDEO HERO */}
       <section className="relative min-h-[88vh] flex items-center justify-center overflow-hidden text-white border-b border-gold-500/20">
         {/* Responsive HTML5 Video Background */}
@@ -390,7 +400,7 @@ export default function HomePage() {
               <motion.div
                 key={unit}
                 variants={itemVariants}
-                className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 font-medium hover:border-gold-500 transition-colors"
+                className="cursor-target flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 font-medium hover:border-gold-500 transition-colors"
               >
                 <span className="w-5 h-5 rounded-full bg-gold-500/20 text-gold-600 flex items-center justify-center font-bold text-[10px] shrink-0">
                   {idx + 1}

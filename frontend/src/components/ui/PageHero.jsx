@@ -2,7 +2,17 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ChevronRight } from "lucide-react";
+import dynamic from "next/dynamic";
+
+const DotField = dynamic(() => import("@/components/ui/DotField"), {
+  ssr: false,
+});
+
+const Lightfall = dynamic(() => import("@/components/ui/Lightfall"), {
+  ssr: false,
+});
 
 export default function PageHero({
   badge,
@@ -11,7 +21,20 @@ export default function PageHero({
   subtitle,
   bgImage = "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1920&auto=format&fit=crop",
   breadcrumbs = [],
+  variant,
 }) {
+  const pathname = usePathname() || "";
+
+  // Determine animation overlay type based on explicit variant prop or route path
+  let activeVariant = variant;
+  if (!activeVariant) {
+    if (pathname.includes("/academics") || pathname.includes("/student-life") || pathname.includes("/contact")) {
+      activeVariant = "lightfall";
+    } else {
+      activeVariant = "dotfield";
+    }
+  }
+
   return (
     <section className="relative min-h-[420px] md:min-h-[480px] flex items-center justify-center bg-navy-950 overflow-hidden text-white border-b border-gold-500/20">
       {/* Background Image with Zoom-out animation */}
@@ -23,8 +46,41 @@ export default function PageHero({
         style={{ backgroundImage: `url("${bgImage}")` }}
       />
 
-      {/* Dark Overlay Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/80 to-navy-950/60 z-10 pointer-events-none"></div>
+      {/* Dark Overlay Gradient - Lighter for high image clarity */}
+      <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/45 to-navy-950/20 z-10 pointer-events-none"></div>
+
+      {/* Futuristic Animation Overlay (DotField or Lightfall) */}
+      <div className="absolute inset-0 z-15 pointer-events-none opacity-80 overflow-hidden mix-blend-screen">
+        {activeVariant === "lightfall" ? (
+          <Lightfall
+            colors={["#D4AF37", "#F59E0B", "#3B82F6"]}
+            backgroundColor="#020617"
+            speed={0.4}
+            streakCount={4}
+            streakWidth={1.2}
+            streakLength={1.2}
+            glow={1}
+            density={0.5}
+            zoom={2.5}
+            backgroundGlow={0.1}
+            opacity={0.6}
+            mouseInteraction={true}
+          />
+        ) : (
+          <DotField
+            dotRadius={2.8}
+            dotSpacing={14}
+            cursorForce={0.15}
+            bulgeStrength={85}
+            glowRadius={220}
+            sparkle={true}
+            waveAmplitude={2.5}
+            gradientFrom="rgba(255, 215, 0, 0.95)"
+            gradientTo="rgba(245, 158, 11, 0.8)"
+            glowColor="#FFD700"
+          />
+        )}
+      </div>
 
       {/* Content Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center relative z-20 space-y-5">
@@ -71,7 +127,7 @@ export default function PageHero({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight max-w-4xl mx-auto"
+          className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight max-w-4xl mx-auto drop-shadow-md"
         >
           {title}{" "}
           {titleHighlight && (
@@ -87,7 +143,7 @@ export default function PageHero({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.25 }}
-            className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-normal leading-relaxed"
+            className="text-base sm:text-lg text-slate-200 max-w-2xl mx-auto font-normal leading-relaxed drop-shadow-sm"
           >
             {subtitle}
           </motion.p>

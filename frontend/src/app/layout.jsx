@@ -32,6 +32,11 @@ export const metadata = {
     "Sir Jay Suits",
     "KNQF Certificate Diploma Kenya",
   ],
+  icons: {
+    icon: "/SJLogo.jpeg",
+    shortcut: "/SJLogo.jpeg",
+    apple: "/SJLogo.jpeg",
+  },
 };
 
 export default function RootLayout({ children }) {

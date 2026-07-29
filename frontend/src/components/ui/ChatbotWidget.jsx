@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, X, Send, Zap, User, ShieldCheck } from "lucide-react";
 
@@ -63,8 +64,14 @@ export default function ChatbotWidget() {
           className="flex items-center gap-3 px-5 py-3.5 rounded-full bg-gradient-to-r from-navy-900 to-navy-800 text-white shadow-2xl border border-gold-500/40 hover:border-gold-400 group cursor-pointer"
         >
           <div className="relative">
-            <div className="w-8 h-8 rounded-full bg-gold-500 text-navy-950 flex items-center justify-center font-bold text-xs">
-              S
+            <div className="w-8 h-8 rounded-full overflow-hidden border border-gold-400/50 flex items-center justify-center bg-white shrink-0">
+              <Image
+                src="/SJLogo.jpeg"
+                alt="Sir Jay Logo"
+                width={32}
+                height={32}
+                className="w-full h-full object-cover"
+              />
             </div>
             <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border border-navy-900"></span>
           </div>
@@ -92,8 +99,14 @@ export default function ChatbotWidget() {
             <div className="p-4 bg-navy-900 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 text-navy-950 flex items-center justify-center font-bold text-sm">
-                    S
+                  <div className="w-9 h-9 rounded-full overflow-hidden border border-gold-400/50 flex items-center justify-center bg-white shrink-0">
+                    <Image
+                      src="/SJLogo.jpeg"
+                      alt="Sir Jay Logo"
+                      width={36}
+                      height={36}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border border-navy-900"></span>
                 </div>
