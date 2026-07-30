@@ -66,7 +66,7 @@ export default function ChatbotWidget() {
           <div className="relative">
             <div className="w-8 h-8 rounded-full overflow-hidden border border-gold-400/50 flex items-center justify-center bg-white shrink-0">
               <Image
-                src="/SJLogo.jpeg"
+                src="https://res.cloudinary.com/dnjj3tr4d/image/upload/v1785409345/SJLogo_piibe7.jpg"
                 alt="Sir Jay Logo"
                 width={32}
                 height={32}
@@ -101,7 +101,7 @@ export default function ChatbotWidget() {
                 <div className="relative">
                   <div className="w-9 h-9 rounded-full overflow-hidden border border-gold-400/50 flex items-center justify-center bg-white shrink-0">
                     <Image
-                      src="/SJLogo.jpeg"
+                      src="https://res.cloudinary.com/dnjj3tr4d/image/upload/v1785409345/SJLogo_piibe7.jpg"
                       alt="Sir Jay Logo"
                       width={36}
                       height={36}

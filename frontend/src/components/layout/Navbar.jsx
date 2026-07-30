@@ -49,7 +49,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-11 h-11 rounded-xl overflow-hidden shadow-md group-hover:scale-105 transition-transform duration-300 relative border border-gold-500/30 bg-white flex items-center justify-center shrink-0">
               <Image
-                src="/SJLogo.jpeg"
+                src="https://res.cloudinary.com/dnjj3tr4d/image/upload/v1785409345/SJLogo_piibe7.jpg"
                 alt="Sir Jay Institute Logo"
                 width={44}
                 height={44}
