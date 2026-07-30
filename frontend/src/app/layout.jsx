@@ -33,9 +33,9 @@ export const metadata = {
     "KNQF Certificate Diploma Kenya",
   ],
   icons: {
-    icon: "/SJLogo.jpeg",
-    shortcut: "/SJLogo.jpeg",
-    apple: "/SJLogo.jpeg",
+    icon: "/SJLogo.ico",
+    shortcut: "/SJLogo.ico",
+    apple: "/SJLogo.ico",
   },
 };
 

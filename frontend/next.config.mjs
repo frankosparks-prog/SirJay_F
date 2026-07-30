@@ -10,6 +10,9 @@ const nextConfig = {
   outputFileTracingRoot: path.resolve(__dirname),
   allowedDevOrigins: ['192.168.1.225', 'localhost', '127.0.0.1'],
   output: 'export',
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;
