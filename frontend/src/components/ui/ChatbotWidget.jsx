@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, X, Send, Zap, User, ShieldCheck } from "lucide-react";
+import { getFAQs } from "@/lib/api";
 
-const faqData = [
+const defaultFaqData = [
   {
     question: "When is the next intake?",
     answer: "Our major intakes occur in January, May, and September, with ongoing rolling admissions for fashion workshops."
@@ -26,6 +27,7 @@ const faqData = [
 
 export default function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  const [faqs, setFaqs] = useState(defaultFaqData);
   const [messages, setMessages] = useState([
     {
       sender: "bot",
@@ -33,6 +35,16 @@ export default function ChatbotWidget() {
     }
   ]);
   const [input, setInput] = useState("");
+
+  useEffect(() => {
+    async function loadFaqs() {
+      const data = await getFAQs();
+      if (data && data.length > 0) {
+        setFaqs(data);
+      }
+    }
+    loadFaqs();
+  }, []);
 
   const handleSend = (textToSend) => {
     const query = textToSend || input;
@@ -44,7 +56,7 @@ export default function ChatbotWidget() {
 
     // Simulate humanized support response
     setTimeout(() => {
-      const match = faqData.find(f => query.toLowerCase().includes(f.question.toLowerCase().slice(0, 10)));
+      const match = faqs.find(f => query.toLowerCase().includes(f.question.toLowerCase().slice(0, 10)));
       const reply = match
         ? match.answer
         : "Thank you for reaching out! You can also reach our admissions desk directly at +254 719 185 821 or visit us on Hospital Road, Nanyuki.";
@@ -149,7 +161,7 @@ export default function ChatbotWidget() {
 
             {/* Quick Question Chips */}
             <div className="p-2.5 bg-navy-900/90 border-t border-slate-800 flex gap-2 overflow-x-auto text-[11px] scrollbar-none">
-              {faqData.map((faq, idx) => (
+              {faqs.map((faq, idx) => (
                 <button
                   key={idx}
                   onClick={() => handleSend(faq.question)}

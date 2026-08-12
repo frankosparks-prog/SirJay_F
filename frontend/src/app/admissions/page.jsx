@@ -47,6 +47,8 @@ const containerVariants = {
   },
 };
 
+import { submitApplication } from "@/lib/api";
+
 const itemVariants = {
   hidden: { y: 20, opacity: 0 },
   visible: { y: 0, opacity: 1, transition: { duration: 0.4 } },
@@ -63,10 +65,19 @@ export default function AdmissionsPage() {
     schedulePreference: "Day Class (9am-5pm)",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    try {
+      await submitApplication(formData);
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitted(true);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (

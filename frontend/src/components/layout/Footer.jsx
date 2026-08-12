@@ -9,6 +9,7 @@ import {
   ChevronRight,
   ShieldCheck,
 } from "lucide-react";
+import { InstagramIcon, FacebookIcon, LinkedinIcon } from "@/components/ui/SocialIcons";
 
 export default function Footer() {
   return (
@@ -53,9 +54,47 @@ export default function Footer() {
               TVETA-registered premier vocational training institution empowering creative minds in Fashion, ICT, and Media Arts.
             </p>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-navy-900 border border-gold-500/20 text-xs text-gold-300 font-medium">
-              <ShieldCheck className="w-4 h-4 text-gold-400" />
-              TVETA & KNQF Compliant
+            <div className="flex items-center gap-3 pt-1">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-navy-900 border border-gold-500/20 text-xs text-gold-300 font-medium">
+                <ShieldCheck className="w-4 h-4 text-gold-400" />
+                TVETA Compliant
+              </div>
+            </div>
+
+            {/* Social Media Handles */}
+            <div className="pt-2">
+              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                Follow Our Socials
+              </span>
+              <div className="flex items-center gap-2.5">
+                <a
+                  href="https://www.instagram.com/sirjaysartorial/?hl=en"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-xl bg-navy-900 border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-navy-950 flex items-center justify-center transition-all shadow-md group"
+                  title="Follow us on Instagram"
+                >
+                  <InstagramIcon className="w-4.5 h-4.5 group-hover:scale-110 transition-transform" />
+                </a>
+                <a
+                  href="https://facebook.com/Sirjaysuits/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-xl bg-navy-900 border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-navy-950 flex items-center justify-center transition-all shadow-md group"
+                  title="Follow us on Facebook"
+                >
+                  <FacebookIcon className="w-4.5 h-4.5 group-hover:scale-110 transition-transform" />
+                </a>
+                <a
+                  href="https://ke.linkedin.com/in/sir-jay-14b60a158"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-9 h-9 rounded-xl bg-navy-900 border border-gold-500/30 text-gold-400 hover:bg-gold-500 hover:text-navy-950 flex items-center justify-center transition-all shadow-md group"
+                  title="Connect with us on LinkedIn"
+                >
+                  <LinkedinIcon className="w-4.5 h-4.5 group-hover:scale-110 transition-transform" />
+                </a>
+              </div>
             </div>
           </div>
 
@@ -69,6 +108,7 @@ export default function Footer() {
                 { label: "Home", href: "/" },
                 { label: "About Us", href: "/about" },
                 { label: "Academics & Courses", href: "/academics" },
+                { label: "Faculty & Staff", href: "/staff" },
                 { label: "Admissions & Enrollment", href: "/admissions" },
                 { label: "Student Life", href: "/student-life" },
                 { label: "Events & News", href: "/events" },
@@ -154,6 +194,34 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <p>© {new Date().getFullYear()} Sir Jay Training Institute. All rights reserved.</p>
+          <div className="flex items-center gap-4 text-slate-400">
+            <a
+              href="https://www.instagram.com/sirjaysartorial/?hl=en"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-gold-400 flex items-center gap-1 transition-colors"
+            >
+              <InstagramIcon className="w-3.5 h-3.5" /> Instagram
+            </a>
+            <span>•</span>
+            <a
+              href="https://facebook.com/Sirjaysuits/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-gold-400 flex items-center gap-1 transition-colors"
+            >
+              <FacebookIcon className="w-3.5 h-3.5" /> Facebook
+            </a>
+            <span>•</span>
+            <a
+              href="https://ke.linkedin.com/in/sir-jay-14b60a158"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-gold-400 flex items-center gap-1 transition-colors"
+            >
+              <LinkedinIcon className="w-3.5 h-3.5" /> LinkedIn
+            </a>
+          </div>
           <p className="text-slate-500">
             Nanyuki, Laikipia County, Kenya • TVETA Approved Vocational College
           </p>
@@ -162,3 +230,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+

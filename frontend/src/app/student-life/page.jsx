@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
+import { getGalleryItems } from "@/lib/api";
 import {
   Sparkles,
   Play,
@@ -184,10 +185,32 @@ export default function StudentLifePage() {
   const [bendAmount, setBendAmount] = useState(3);
   const videoRef = useRef(null);
 
+  const [gridItems, setGridItems] = useState(galleryGridItems);
+  const [circularItems, setCircularItems] = useState(circularGalleryItems);
+
+  useEffect(() => {
+    async function loadGallery() {
+      const items = await getGalleryItems();
+      if (items && items.length > 0) {
+        setGridItems(items);
+        const circ = items
+          .filter((i) => i.isCircularGallery)
+          .map((i) => ({
+            image: i.src,
+            text: i.title,
+          }));
+        if (circ.length > 0) {
+          setCircularItems(circ);
+        }
+      }
+    }
+    loadGallery();
+  }, []);
+
   const filteredItems =
     activeCategory === "All"
-      ? galleryGridItems
-      : galleryGridItems.filter((item) => item.category === activeCategory);
+      ? gridItems
+      : gridItems.filter((item) => item.category === activeCategory);
 
   const toggleMainVideoPlay = () => {
     if (videoRef.current) {
@@ -262,12 +285,12 @@ export default function StudentLifePage() {
             </div>
 
             <div className="absolute top-4 right-4 z-20 px-3 py-1 rounded-lg bg-navy-950/80 border border-gold-500/30 text-[10px] font-mono text-slate-400 hidden sm:flex items-center gap-2">
-              <span>ITEMS: {circularGalleryItems.length} PANELS</span>
+              <span>ITEMS: {circularItems.length} PANELS</span>
             </div>
 
             {/* Circular Gallery WebGL Component */}
             <CircularGallery
-              items={circularGalleryItems}
+              items={circularItems}
               bend={bendAmount}
               textColor="#F59E0B"
               font="bold 26px Figtree, sans-serif"
@@ -386,9 +409,9 @@ export default function StudentLifePage() {
 
           <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <AnimatePresence>
-              {filteredItems.map((item) => (
+              {filteredItems.map((item, idx) => (
                 <motion.div
-                  key={item.id}
+                  key={item._id || item.id || `item-${idx}`}
                   layout
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}

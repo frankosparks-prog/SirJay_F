@@ -1,40 +1,37 @@
 const express = require('express');
 const cors = require('cors');
+const morgan = require('morgan');
 require('dotenv').config();
+const connectDB = require('./src/config/db');
 
 const app = express();
+
+// Connect to MongoDB
+connectDB();
+
+// Middleware
 app.use(cors());
 app.use(express.json());
+app.use(morgan('dev'));
 
-// Sample Sir Jay Courses API Endpoint
-app.get('/api/courses', (req, res) => {
-  res.json([
-    {
-      id: 1,
-      category: 'fashion',
-      title: 'Fashion Design & Garment Construction',
-      level: 'Diploma / Certificate',
-      duration: '6 Months to 1 Year',
-      fees: 'KES 22,000 / Term',
-      image: 'https://images.unsplash.com/photo-1537832816519-689ad163238b'
-    },
-    {
-      id: 2,
-      category: 'ict',
-      title: 'Graphic Design & Brand Arts',
-      level: 'Certificate',
-      duration: '3 Months',
-      fees: 'KES 20,000 Total',
-      image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d'
-    }
-  ]);
-});
+// API Routes
+app.use('/api/auth', require('./src/routes/authRoutes'));
+app.use('/api/hero', require('./src/routes/heroRoutes'));
+app.use('/api/why-choose', require('./src/routes/whyChooseRoutes'));
+app.use('/api/fashion-modules', require('./src/routes/fashionModuleRoutes'));
+app.use('/api/coming-soon', require('./src/routes/comingSoonRoutes'));
+app.use('/api/courses', require('./src/routes/courseRoutes'));
+app.use('/api/admissions', require('./src/routes/applicationRoutes'));
+app.use('/api/contact', require('./src/routes/inquiryRoutes'));
+app.use('/api/events', require('./src/routes/eventRoutes'));
+app.use('/api/gallery', require('./src/routes/galleryRoutes'));
+app.use('/api/faqs', require('./src/routes/faqRoutes'));
+app.use('/api/staff', require('./src/routes/staffRoutes'));
+app.use('/api/admin', require('./src/routes/adminStatsRoutes'));
 
-// Online Application Form Handler
-app.post('/api/admissions/apply', (req, res) => {
-  const { name, phone, email, course, intake } = req.body;
-  console.log('New Application Received:', { name, phone, email, course, intake });
-  res.status(201).json({ success: true, message: 'Application submitted successfully!' });
+// Health Check
+app.get('/api/health', (req, res) => {
+  res.json({ success: true, message: 'Sir Jay API Server Running smoothly' });
 });
 
 const PORT = process.env.PORT || 5000;

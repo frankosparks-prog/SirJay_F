@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import {
@@ -14,12 +15,15 @@ import {
   Music,
   Camera,
   Coffee,
+  GraduationCap,
+  Sparkles,
 } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
 import PageHero from "@/components/ui/PageHero";
 import CourseTable from "@/components/ui/CourseTable";
 import Button from "@/components/ui/Button";
 import StickyBackgroundSection from "@/components/ui/StickyBackgroundSection";
+import { getCourses } from "@/lib/api";
 
 const GlassAccent = dynamic(() => import("@/components/3d/GlassAccent"), {
   ssr: false,
@@ -28,6 +32,39 @@ const GlassAccent = dynamic(() => import("@/components/3d/GlassAccent"), {
 const TargetCursor = dynamic(() => import("@/components/ui/TargetCursor"), {
   ssr: false,
 });
+
+const defaultCoursesList = [
+  {
+    _id: "c1",
+    title: "School of Fashion Design - Professional Diploma Track",
+    category: "fashion",
+    level: "Diploma / Certificate",
+    duration: "1 Year (4 Modules x 3 Months)",
+    fees: "KES 22,000 / Term",
+    image: "https://images.unsplash.com/photo-1537832816519-689ad163238b?q=80&w=800&auto=format&fit=crop",
+    description: "Comprehensive 12-unit curriculum covering pattern drafting, croquis sketching, suit tailoring, couture gown construction, CAD illustration, and fashion business law.",
+  },
+  {
+    _id: "c2",
+    title: "Artisan Level 3 Garment Making & Tailoring",
+    category: "fashion",
+    level: "NITA & TVETA Level 3 Artisan",
+    duration: "6 Months",
+    fees: "KES 18,500 / Term",
+    image: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=800&auto=format&fit=crop",
+    description: "Hands-on practical workshop training focused on industrial machine sewing, overlock finishing, trouser and skirt assembly, and alterings.",
+  },
+  {
+    _id: "c3",
+    title: "Graphic Design & Fashion Vector Illustration",
+    category: "ict",
+    level: "Craft Certificate",
+    duration: "3 Months",
+    fees: "KES 15,000 / Term",
+    image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=800&auto=format&fit=crop",
+    description: "Master Photoshop, Illustrator, and digital croquis design tools to generate technical flat spec sheets, brand logos, and digital mood boards.",
+  },
+];
 
 const fashionDurations = [
   { level: "Beginner", duration: "3 Months", desc: "Machine setup, straight stitching, body measurements, basic skirt & shirt pattern creation." },
@@ -71,6 +108,24 @@ const itemVariants = {
 };
 
 export default function AcademicsPage() {
+  const [coursesList, setCoursesList] = useState(defaultCoursesList);
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  useEffect(() => {
+    async function loadCourses() {
+      const data = await getCourses();
+      if (data && data.length > 0) {
+        setCoursesList(data);
+      }
+    }
+    loadCourses();
+  }, []);
+
+  const filteredCourses =
+    selectedCategory === "all"
+      ? coursesList
+      : coursesList.filter((c) => c.category === selectedCategory);
+
   return (
     <div className="space-y-20 pb-20 overflow-hidden">
       <TargetCursor
@@ -125,14 +180,14 @@ export default function AcademicsPage() {
         <SectionHeader
           badge="Progressive Modules"
           title="Fashion Design Track"
-          titleHighlight="Durations"
-          subtitle="Study at your own pace. Each module runs for 3 months and builds directly toward complete professional mastery."
+          titleHighlight="Duration Breakdown"
+          subtitle="4 modular stages of 3 months each designed to take students from absolute foundation to industry leadership."
         />
 
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-60px" }}
           variants={containerVariants}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10"
         >
@@ -144,15 +199,10 @@ export default function AcademicsPage() {
               className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md space-y-3 flex flex-col justify-between cursor-pointer"
             >
               <div className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <span className="text-xs font-bold text-gold-600 uppercase tracking-wider">
-                    Tier 0{idx + 1}
-                  </span>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-700">
-                    {item.duration}
-                  </span>
-                </div>
-                <h3 className="text-xl font-extrabold text-slate-900">{item.level} Level</h3>
+                <span className="text-xs font-bold text-gold-600 uppercase tracking-wider">
+                  Module 0{idx + 1} • {item.level}
+                </span>
+                <h4 className="text-xl font-extrabold text-slate-900">{item.duration}</h4>
                 <p className="text-xs text-slate-600 leading-relaxed font-normal">{item.desc}</p>
               </div>
 
@@ -165,23 +215,102 @@ export default function AcademicsPage() {
         </motion.div>
       </section>
 
-      {/* STICKY PARALLAX BACKGROUND OVERLAY: 12 CORE UNITS SYLLABUS GRID WITH 3D ACADEMIC BOOK */}
-      <StickyBackgroundSection
-        bgImage="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop"
-        overlayColor="bg-navy-950/45"
-      >
-        <div className="space-y-12 relative">
-          {/* Floating 3D Academic Book */}
-          <div className="absolute -top-14 -right-12 hidden lg:block pointer-events-none z-0">
-            <GlassAccent type="book" className="w-64 h-64 opacity-80" />
-          </div>
+      {/* DYNAMIC COURSE CATALOG SECTION FETCHED FROM BACKEND API */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        <SectionHeader
+          badge="Complete Curriculum"
+          title="Official Course"
+          titleHighlight="Catalog"
+          subtitle="Browse all available vocational programs offered at Sir Jay Training Institute (Nanyuki Campus)."
+        />
 
+        {/* Filter Categories */}
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          {[
+            { id: "all", label: "All Programs" },
+            { id: "fashion", label: "Fashion & Textile Design" },
+            { id: "ict", label: "ICT & Digital Media" },
+          ].map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setSelectedCategory(cat.id)}
+              className={`px-4 py-2 rounded-full text-xs font-extrabold transition-all cursor-pointer ${
+                selectedCategory === cat.id
+                  ? "bg-navy-900 text-gold-400 shadow-lg border border-gold-500/40"
+                  : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-50"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Course Cards Grid */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={containerVariants}
+          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+        >
+          {filteredCourses.map((course, idx) => (
+            <motion.div
+              key={course._id || idx}
+              variants={itemVariants}
+              whileHover={{ y: -6 }}
+              className="rounded-3xl bg-white border border-slate-200 shadow-xl overflow-hidden flex flex-col justify-between group cursor-pointer"
+            >
+              <div className="relative h-48 overflow-hidden bg-slate-100">
+                <img
+                  src={course.image || "https://images.unsplash.com/photo-1537832816519-689ad163238b"}
+                  alt={course.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute top-4 right-4 text-xs font-extrabold px-3 py-1 rounded-full bg-navy-950/90 text-gold-400 shadow-md backdrop-blur-md">
+                  {course.fees}
+                </div>
+                <div className="absolute top-4 left-4 text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-white/90 text-navy-900 shadow-sm backdrop-blur-md">
+                  {course.category}
+                </div>
+              </div>
+
+              <div className="p-7 space-y-4 flex-1 flex flex-col justify-between text-slate-900">
+                <div className="space-y-3">
+                  <div className="inline-block text-[11px] font-bold px-2.5 py-1 rounded-md bg-gold-500/10 text-gold-700 border border-gold-500/20">
+                    {course.level} • {course.duration}
+                  </div>
+                  <h3 className="text-xl font-extrabold text-slate-900 group-hover:text-navy-700 transition-colors">
+                    {course.title}
+                  </h3>
+                  <p className="text-xs text-slate-600 leading-relaxed font-normal">
+                    {course.description}
+                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                  <span className="text-xs font-bold text-navy-700">TVETA Recognized</span>
+                  <Button href="/admissions" size="sm" icon={ArrowRight}>
+                    Apply Now
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </section>
+
+      {/* STICKY BACKGROUND PARALLAX: 12 CORE UNITS */}
+      <StickyBackgroundSection
+        bgImage="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=800&auto=format&fit=crop"
+        overlayColor="bg-navy-950/40"
+      >
+        <div className="space-y-12">
           <SectionHeader
             dark={true}
-            badge="Complete Syllabus"
-            title="12 Units Covered in"
-            titleHighlight="Fashion & Apparel"
-            subtitle="Every unit is structured with 70% practical workshop output and 30% business application."
+            badge="Full Syllabus Overview"
+            title="12 Core Units"
+            titleHighlight="Covered"
+            subtitle="Every student masters these 12 core competencies during their journey at Sir Jay Institute."
           />
 
           <motion.div
@@ -216,8 +345,8 @@ export default function AcademicsPage() {
       {/* KNQF PROGRESSION TABLE */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <SectionHeader
-          badge="Official Matrix"
-          title="KNQF National Qualification"
+          badge="Qualifications"
+          title="National"
           titleHighlight="Progression Table"
           subtitle="See exact entry requirements, study durations, and next level pathways recognized across Kenya."
         />

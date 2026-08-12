@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import dynamic from "next/dynamic";
 import {
@@ -27,6 +27,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import CourseTable from "@/components/ui/CourseTable";
 import Counter from "@/components/ui/Counter";
 import StickyBackgroundSection from "@/components/ui/StickyBackgroundSection";
+import { getHeroConfig, getWhyChooseCards, getFashionModules, getComingSoonDepts } from "@/lib/api";
 
 const GlassAccent = dynamic(() => import("@/components/3d/GlassAccent"), {
   ssr: false,
@@ -36,14 +37,32 @@ const TargetCursor = dynamic(() => import("@/components/ui/TargetCursor"), {
   ssr: false,
 });
 
-const stats = [
+const iconMap = {
+  Users,
+  GraduationCap,
+  Briefcase,
+  TrendingUp,
+  Scissors,
+  Award,
+  Palette,
+  Music,
+  Camera,
+  Coffee,
+  BookOpen,
+};
+
+const getIconComponent = (name, fallback = Scissors) => {
+  return iconMap[name] || fallback;
+};
+
+const defaultStats = [
   { label: "Graduated Alumni", value: "1,800", suffix: "+", icon: Users },
   { label: "Professional Courses", value: "16", suffix: "+", icon: GraduationCap },
   { label: "Self-Employment Rate", value: "95", suffix: "%", icon: Briefcase },
   { label: "Practical Workshop Access", value: "100", suffix: "%", icon: TrendingUp },
 ];
 
-const fashionTiers = [
+const defaultFashionTiers = [
   { title: "Beginner Level", duration: "3 Months", desc: "Machine setup, straight stitching, body measurements, and basic pattern drafting." },
   { title: "Intermediate Level", duration: "3 Months", desc: "Garment drafting, collar & sleeve techniques, zipper insertions, and precision fitting." },
   { title: "Expert Level", duration: "3 Months", desc: "Bespoke tailoring, blazer construction, couture gowns, and embroidery embellishments." },
@@ -65,7 +84,7 @@ const coreUnits = [
   "Business Law & Ethics",
 ];
 
-const whyChooseCards = [
+const defaultWhyChooseCards = [
   {
     title: "Modern Studios & Workshops",
     description: "Train with industrial electric sewing machines, heavy-duty pattern tables, and Adobe Creative Cloud labs designed to simulate commercial production houses.",
@@ -89,7 +108,7 @@ const whyChooseCards = [
   },
 ];
 
-const comingSoonDepartments = [
+const defaultComingSoonDepartments = [
   { name: "Cosmetology & Beauty", desc: "Skincare, hair design, spa & aesthetic therapies.", icon: Palette },
   { name: "Deejay School", desc: "Digital mixing, sound engineering & live performance.", icon: Music },
   { name: "Modeling School", desc: "Runway poise, commercial photography & portfolio build.", icon: Camera },
@@ -122,6 +141,55 @@ export default function HomePage() {
   });
 
   const heroParallax = useTransform(scrollYProgress, [0, 0.3], [0, 80]);
+
+  const [heroBadgeText, setHeroBadgeText] = useState("Admissions Open for 2025/2026");
+  const [statsData, setStatsData] = useState(defaultStats);
+  const [whyChooseData, setWhyChooseData] = useState(defaultWhyChooseCards);
+  const [fashionModulesData, setFashionModulesData] = useState(defaultFashionTiers);
+  const [comingSoonData, setComingSoonData] = useState(defaultComingSoonDepartments);
+
+  useEffect(() => {
+    async function loadData() {
+      const hero = await getHeroConfig();
+      if (hero) {
+        if (hero.announcementBadgeText) setHeroBadgeText(hero.announcementBadgeText);
+        if (hero.stats && hero.stats.length > 0) {
+          setStatsData(
+            hero.stats.map((s) => ({
+              ...s,
+              icon: getIconComponent(s.iconName, Users),
+            }))
+          );
+        }
+      }
+
+      const cards = await getWhyChooseCards();
+      if (cards && cards.length > 0) {
+        setWhyChooseData(
+          cards.map((c) => ({
+            ...c,
+            icon: getIconComponent(c.iconName, Scissors),
+          }))
+        );
+      }
+
+      const modules = await getFashionModules();
+      if (modules && modules.length > 0) {
+        setFashionModulesData(modules);
+      }
+
+      const depts = await getComingSoonDepts();
+      if (depts && depts.length > 0) {
+        setComingSoonData(
+          depts.map((d) => ({
+            ...d,
+            icon: getIconComponent(d.iconName, Palette),
+          }))
+        );
+      }
+    }
+    loadData();
+  }, []);
 
   return (
     <div ref={containerRef} className="space-y-24 pb-20 overflow-hidden">
@@ -161,7 +229,7 @@ export default function HomePage() {
             className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-panel-dark text-gold-300 text-xs md:text-sm font-semibold shadow-2xl border border-gold-500/30"
           >
             <Zap className="w-4 h-4 text-gold-400 animate-pulse" />
-            <span>Admissions Open for 2025/2026</span>
+            <span>{heroBadgeText}</span>
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
           </motion.div>
 
@@ -223,10 +291,6 @@ export default function HomePage() {
               <Clock className="w-4 h-4 text-gold-400 shrink-0" />
               <span>Day, Evening & Weekend</span>
             </div>
-            <div className="flex items-center gap-2">
-              <Award className="w-4 h-4 text-gold-400 shrink-0" />
-              <span>NITA & KNQF Certified</span>
-            </div>
           </motion.div>
         </motion.div>
       </section>
@@ -240,7 +304,7 @@ export default function HomePage() {
           variants={containerVariants}
           className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 rounded-3xl bg-white border border-slate-200 shadow-xl"
         >
-          {stats.map((stat) => {
+          {statsData.map((stat) => {
             const IconComp = stat.icon;
             return (
               <motion.div key={stat.label} variants={itemVariants} className="text-center space-y-2 group">
@@ -280,7 +344,7 @@ export default function HomePage() {
             variants={containerVariants}
             className="grid grid-cols-1 md:grid-cols-3 gap-8"
           >
-            {whyChooseCards.map((card) => {
+            {whyChooseData.map((card) => {
               const CardIcon = card.icon;
               return (
                 <motion.div
@@ -346,7 +410,7 @@ export default function HomePage() {
           variants={containerVariants}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10"
         >
-          {fashionTiers.map((tier, idx) => (
+          {fashionModulesData.map((tier, idx) => (
             <motion.div
               key={tier.title}
               variants={itemVariants}
@@ -420,10 +484,10 @@ export default function HomePage() {
         </div>
 
         <SectionHeader
-          badge="National Progression"
-          title="TVETA & KNQF Qualification"
+          badge="Qualifications"
+          title="National Progression"
           titleHighlight="Pathways"
-          subtitle="Understand how your studies at Sir Jay Institute build up towards national certificates and university progression."
+          subtitle="Understand how your studies at Sir Jay Institute build up towards national certificates and university progression. However, we encourage studies due to passion and interest"
         />
         <div className="relative z-10">
           <CourseTable />
@@ -446,7 +510,7 @@ export default function HomePage() {
           variants={containerVariants}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
-          {comingSoonDepartments.map((dept) => {
+          {comingSoonData.map((dept) => {
             const DeptIcon = dept.icon;
             return (
               <motion.div

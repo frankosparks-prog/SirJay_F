@@ -21,8 +21,8 @@ export default function TopBar() {
 
           <div className="hidden lg:flex items-center gap-1.5">
             <Mail className="w-3.5 h-3.5 text-gold-400 shrink-0" />
-            <a href="mailto:admissions@sirjayinstitute.ac.ke" className="hover:text-gold-300 transition-colors">
-              admissions@sirjayinstitute.ac.ke
+            <a href="mailto:sirjaysuits@gmail.com" className="hover:text-gold-300 transition-colors">
+              sirjaysuits@gmail.com
             </a>
           </div>
         </div>
@@ -31,7 +31,7 @@ export default function TopBar() {
         <div className="flex items-center gap-3">
           <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-gold-500/20 text-gold-400 text-[11px] font-bold border border-gold-500/30 uppercase tracking-wider">
             <Zap className="w-3 h-3 text-gold-400" />
-            MAY 2025 INTAKE ONGOING
+            MAY 2026 INTAKE ONGOING
           </span>
 
           <div className="h-3.5 w-[1px] bg-slate-700 hidden sm:block"></div>

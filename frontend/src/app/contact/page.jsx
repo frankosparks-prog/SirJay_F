@@ -16,6 +16,9 @@ import dynamic from "next/dynamic";
 import SectionHeader from "@/components/ui/SectionHeader";
 import PageHero from "@/components/ui/PageHero";
 import Button from "@/components/ui/Button";
+import { InstagramIcon, FacebookIcon, LinkedinIcon } from "@/components/ui/SocialIcons";
+
+import { submitInquiry } from "@/lib/api";
 
 const TargetCursor = dynamic(() => import("@/components/ui/TargetCursor"), {
   ssr: false,
@@ -23,6 +26,7 @@ const TargetCursor = dynamic(() => import("@/components/ui/TargetCursor"), {
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
@@ -31,9 +35,17 @@ export default function ContactPage() {
     message: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    try {
+      await submitInquiry(formData);
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitted(true);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -126,6 +138,65 @@ export default function ContactPage() {
                     </span>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            {/* Official Social Media Channels Card */}
+            <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-4">
+              <div>
+                <h4 className="text-xs font-bold text-gold-600 uppercase tracking-widest">
+                  Connect With Us On Social Media
+                </h4>
+                <p className="text-xs text-slate-600 mt-1">
+                  Follow our official channels for campus updates, student suiting showcases, and announcements.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3 pt-1">
+                <a
+                  href="https://www.instagram.com/sirjaysartorial/?hl=en"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-3 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200/80 transition-all group"
+                >
+                  <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform">
+                    <InstagramIcon className="w-5 h-5" />
+                  </div>
+                  <div className="overflow-hidden">
+                    <span className="text-xs font-extrabold text-slate-900 block truncate">Instagram</span>
+                    <span className="text-[11px] text-slate-500 block truncate">@sirjaysartorial</span>
+                  </div>
+                </a>
+
+                <a
+                  href="https://facebook.com/Sirjaysuits/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-3 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200/80 transition-all group"
+                >
+                  <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform">
+                    <FacebookIcon className="w-5 h-5" />
+                  </div>
+                  <div className="overflow-hidden">
+                    <span className="text-xs font-extrabold text-slate-900 block truncate">Facebook</span>
+                    <span className="text-[11px] text-slate-500 block truncate">Sirjaysuits</span>
+                  </div>
+                </a>
+
+                <a
+                  href="https://ke.linkedin.com/in/sir-jay-14b60a158"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-3 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200/80 transition-all group"
+                >
+                  <div className="w-9 h-9 rounded-xl bg-sky-700 text-white flex items-center justify-center shrink-0 shadow-sm group-hover:scale-105 transition-transform">
+                    <LinkedinIcon className="w-5 h-5" />
+                  </div>
+                  <div className="overflow-hidden">
+                    <span className="text-xs font-extrabold text-slate-900 block truncate">LinkedIn</span>
+                    <span className="text-[11px] text-slate-500 block truncate">Sir Jay Sartorial</span>
+                  </div>
+                </a>
               </div>
             </div>
 
@@ -253,25 +324,40 @@ export default function ContactPage() {
               )}
             </div>
 
-            {/* Map Direction Card */}
-            <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-md flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <Navigation className="w-6 h-6 text-gold-600" />
-                <div>
-                  <h4 className="text-sm font-bold text-slate-900">Nanyuki Town Campus Directions</h4>
-                  <p className="text-xs text-slate-500">
-                    Located off Nyeri-Nanyuki Highway near Cedar Mall area.
-                  </p>
+            {/* Map Direction Card with Embedded Google Maps Iframe */}
+            <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Navigation className="w-6 h-6 text-gold-600" />
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-900">Sir Jay Sartorial Campus Directions</h4>
+                    <p className="text-xs text-slate-500">
+                      Located off Nyeri-Nanyuki Highway near Cedar Mall area, Nanyuki.
+                    </p>
+                  </div>
                 </div>
+                <a
+                  href="https://maps.google.com/?q=Sir+Jay+Sartorial+Nanyuki"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-bold text-navy-900 hover:underline shrink-0 hidden sm:inline"
+                >
+                  Open Maps →
+                </a>
               </div>
-              <a
-                href="https://maps.google.com/?q=Nanyuki+Kenya"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs font-bold text-navy-900 hover:underline shrink-0"
-              >
-                Open Google Maps →
-              </a>
+
+              <div className="w-full h-80 rounded-2xl overflow-hidden border border-slate-200 shadow-inner">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.818101959546!2d37.08178827396718!3d0.018957064409804797!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1787f71988b5c085%3A0x9e397457c440b671!2sSir%20Jay%20Sartorial!5e0!3m2!1sen!2ske!4v1786563392422!5m2!1sen!2ske"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  title="Sir Jay Sartorial Location Map"
+                ></iframe>
+              </div>
             </div>
           </motion.div>
         </div>

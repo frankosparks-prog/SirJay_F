@@ -62,38 +62,126 @@
   -webkit-text-fill-color: transparent;
 }
 
-.text-gradient-navy {
-  background: linear-gradient(135deg, #112a46 0%, #32628d 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.gold-glow {
-  box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
-}
-
-.editorial-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
-}
-
-/* Smooth Scroll behavior */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Custom Scrollbar */
+/* GLOBAL & CUSTOM THEME-COLORED SCROLLBAR STYLING */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
+  height: 10px;
 }
+
 ::-webkit-scrollbar-track {
-  background: #f8fafc;
+  background: #112a46;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #244c73;
-  border-radius: 4px;
+  background: linear-gradient(180deg, #d4af37 0%, #b8860b 100%);
+  border-radius: 6px;
+  border: 2px solid #112a46;
 }
+
 ::-webkit-scrollbar-thumb:hover {
+  background: #f59e0b;
+}
+
+/* Firefox Global Scrollbar Support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #d4af37 #112a46;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #1a3b5c;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
   background: #d4af37;
+  border-radius: 3px;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ADMIN LIGHT THEME COMPLETE STYLING OVERRIDES */
+[data-admin-theme="light"] {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+[data-admin-theme="light"] aside {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+[data-admin-theme="light"] header {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+/* Card Containers & Modals in Light Mode */
+[data-admin-theme="light"] .bg-navy-900:not(.preserve-dark),
+[data-admin-theme="light"] .bg-navy-950:not(.preserve-dark) {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 4px 20px -5px rgba(15, 23, 42, 0.06) !important;
+}
+
+[data-admin-theme="light"] .bg-navy-800:not(.preserve-dark) {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* ALL Page Titles & Text in Light Mode (outside & inside cards) */
+[data-admin-theme="light"] .text-white:not(.preserve-dark):not(.preserve-dark *),
+[data-admin-theme="light"] .text-slate-100:not(.preserve-dark):not(.preserve-dark *),
+[data-admin-theme="light"] .text-slate-200:not(.preserve-dark):not(.preserve-dark *),
+[data-admin-theme="light"] .text-slate-300:not(.preserve-dark):not(.preserve-dark *) {
+  color: #0f172a !important;
+}
+
+[data-admin-theme="light"] .text-slate-400:not(.preserve-dark):not(.preserve-dark *),
+[data-admin-theme="light"] .text-slate-500:not(.preserve-dark):not(.preserve-dark *) {
+  color: #475569 !important;
+}
+
+/* Force White Text on Preserve-Dark Banners & Cards */
+.preserve-dark,
+.preserve-dark * {
+  color: #ffffff !important;
+}
+
+.preserve-dark .text-gold-400 {
+  color: #fbbf24 !important;
+}
+
+.preserve-dark .text-slate-300 {
+  color: #cbd5e1 !important;
+}
+
+[data-admin-theme="light"] input:not(.preserve-dark *),
+[data-admin-theme="light"] select:not(.preserve-dark *),
+[data-admin-theme="light"] textarea:not(.preserve-dark *) {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+[data-admin-theme="light"] tr:hover {
+  background-color: #f1f5f9 !important;
+}
+
+[data-admin-theme="light"] thead tr {
+  background-color: #f1f5f9 !important;
+  color: #b8860b !important;
 }

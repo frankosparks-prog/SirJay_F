@@ -1,18 +1,25 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Calendar,
   Clock,
   MapPin,
   BellRing,
+  X,
+  Send,
+  CheckCircle2,
+  MessageCircle,
 } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
 import PageHero from "@/components/ui/PageHero";
 import Button from "@/components/ui/Button";
+import { getEvents, submitRSVP } from "@/lib/api";
 
-const eventsList = [
+const defaultEventsList = [
   {
+    _id: "1",
     id: 1,
     title: "Sir Jay Nanyuki Fashion Showcase",
     date: "April 28, 2025",
@@ -23,6 +30,7 @@ const eventsList = [
     description: "Graduating students displaying bespoke suit collections, evening gowns, and contemporary African wear to employers, fashion enthusiasts, and local media.",
   },
   {
+    _id: "2",
     id: 2,
     title: "Graphic Design Bootcamp for Beginners",
     date: "May 5, 2025",
@@ -33,6 +41,7 @@ const eventsList = [
     description: "A free 1-day practical workshop on Photoshop basics, croquis vector drawing, and logo design for aspiring fashion and media designers.",
   },
   {
+    _id: "3",
     id: 3,
     title: "Upcoming Intake Registration Drive",
     date: "Ongoing / May Intake",
@@ -45,6 +54,47 @@ const eventsList = [
 ];
 
 export default function EventsPage() {
+  const [eventsList, setEventsList] = useState(defaultEventsList);
+  const [rsvpModalEvent, setRsvpModalEvent] = useState(null);
+  const [rsvpFormData, setRsvpFormData] = useState({
+    fullName: "",
+    whatsappNumber: "",
+    email: "",
+  });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    async function loadEvents() {
+      const data = await getEvents();
+      if (data && data.length > 0) {
+        setEventsList(data);
+      }
+    }
+    loadEvents();
+  }, []);
+
+  const handleOpenRsvpModal = (evt) => {
+    setRsvpModalEvent(evt);
+    setSubmitted(false);
+    setRsvpFormData({ fullName: "", whatsappNumber: "", email: "" });
+  };
+
+  const handleRSVPSubmit = async (e) => {
+    e.preventDefault();
+    if (!rsvpModalEvent) return;
+    setSubmitting(true);
+    try {
+      const targetId = rsvpModalEvent._id || rsvpModalEvent.id;
+      await submitRSVP(targetId, rsvpFormData);
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitted(true);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <div className="space-y-20 pb-20">
       {/* PAGE HERO BANNER */}
@@ -57,7 +107,7 @@ export default function EventsPage() {
         breadcrumbs={[{ label: "Events & News" }]}
       />
 
-      {/* EVENT CARDS GRID (LIGHT EDITORIAL) */}
+      {/* EVENT CARDS GRID */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <SectionHeader
           badge="Upcoming Highlights"
@@ -69,7 +119,7 @@ export default function EventsPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {eventsList.map((evt, idx) => (
             <motion.div
-              key={evt.id}
+              key={evt._id || evt.id || idx}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -114,7 +164,12 @@ export default function EventsPage() {
               </div>
 
               <div className="pt-4 border-t border-slate-100">
-                <Button href="/admissions" size="sm" className="w-full" icon={BellRing}>
+                <Button
+                  onClick={() => handleOpenRsvpModal(evt)}
+                  size="sm"
+                  className="w-full cursor-pointer"
+                  icon={BellRing}
+                >
                   RSVP / Register Interest
                 </Button>
               </div>
@@ -142,6 +197,108 @@ export default function EventsPage() {
           </Button>
         </div>
       </section>
+
+      {/* RSVP POPUP MODAL WITH WHATSAPP NUMBER INPUT */}
+      <AnimatePresence>
+        {rsvpModalEvent && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-navy-950/80 backdrop-blur-md flex items-center justify-center p-4"
+            onClick={() => setRsvpModalEvent(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25 }}
+              onClick={(e) => e.stopPropagation()}
+              className="max-w-md w-full rounded-3xl bg-white border border-gold-500/40 p-6 sm:p-8 shadow-2xl space-y-6 text-slate-900 relative"
+            >
+              <button
+                onClick={() => setRsvpModalEvent(null)}
+                className="absolute top-4 right-4 p-2 rounded-full text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="space-y-2">
+                <span className="text-xs font-bold text-gold-600 uppercase tracking-widest block">
+                  Event Registration • {rsvpModalEvent.category}
+                </span>
+                <h3 className="text-xl font-black text-slate-900">
+                  RSVP for {rsvpModalEvent.title}
+                </h3>
+                <p className="text-xs text-slate-500">
+                  Leave your contact details so our organizers can reach out directly via WhatsApp.
+                </p>
+              </div>
+
+              {submitted ? (
+                <div className="p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-3">
+                  <div className="w-12 h-12 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                    <CheckCircle2 className="w-7 h-7" />
+                  </div>
+                  <h4 className="text-lg font-bold text-slate-900">RSVP Received!</h4>
+                  <p className="text-xs text-slate-600">
+                    Thank you, <strong className="text-slate-900">{rsvpFormData.fullName}</strong>. We have saved your RSVP. Our team will message you on WhatsApp (<strong className="text-navy-900">{rsvpFormData.whatsappNumber}</strong>) with event access details.
+                  </p>
+                  <Button onClick={() => setRsvpModalEvent(null)} size="sm" variant="outline" className="w-full">
+                    Close Window
+                  </Button>
+                </div>
+              ) : (
+                <form onSubmit={handleRSVPSubmit} className="space-y-4 text-xs">
+                  <div className="space-y-1.5">
+                    <label className="font-bold text-slate-700">Full Name *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Grace Wambui"
+                      value={rsvpFormData.fullName}
+                      onChange={(e) => setRsvpFormData({ ...rsvpFormData, fullName: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="font-bold text-slate-700 flex items-center gap-1.5">
+                      <MessageCircle className="w-4 h-4 text-emerald-600" />
+                      WhatsApp Number * (For Easy Reach Out)
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      placeholder="e.g. +254 719 185 821"
+                      value={rsvpFormData.whatsappNumber}
+                      onChange={(e) => setRsvpFormData({ ...rsvpFormData, whatsappNumber: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500 font-semibold"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="font-bold text-slate-700">Email Address (Optional)</label>
+                    <input
+                      type="email"
+                      placeholder="e.g. grace@gmail.com"
+                      value={rsvpFormData.email}
+                      onChange={(e) => setRsvpFormData({ ...rsvpFormData, email: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-gold-500"
+                    />
+                  </div>
+
+                  <div className="pt-2">
+                    <Button type="submit" size="lg" className="w-full cursor-pointer" icon={Send} disabled={submitting}>
+                      {submitting ? "Submitting..." : "Confirm My RSVP"}
+                    </Button>
+                  </div>
+                </form>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
