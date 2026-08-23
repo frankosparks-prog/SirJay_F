@@ -106,7 +106,7 @@ export default function AdmissionsPage() {
         </div>
 
         <SectionHeader
-          badge="Admissions Roadmap"
+          // badge="Admissions Roadmap"
           title="Your 6-Step Journey to"
           titleHighlight="Enrollment"
           subtitle="From your first inquiry to stepping into our equipped design studios."

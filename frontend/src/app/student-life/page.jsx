@@ -246,9 +246,9 @@ export default function StudentLifePage() {
           {/* Section Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-800 pb-6">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-bold uppercase tracking-widest mb-3">
+              {/* <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-bold uppercase tracking-widest mb-3">
                 <Sparkles className="w-3.5 h-3.5" /> WebGL 3D Interactive Showcase
-              </div>
+              </div> */}
               <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
                 Interactive <span className="text-gradient-gold">3D Canvas</span> Experience
               </h2>

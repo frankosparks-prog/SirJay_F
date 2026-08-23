@@ -45,28 +45,17 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo & Brand Title */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-11 h-11 rounded-xl overflow-hidden shadow-md group-hover:scale-105 transition-transform duration-300 relative border border-gold-500/30 bg-white flex items-center justify-center shrink-0">
+          {/* Logo */}
+          <Link href="/" className="flex items-center group py-0.5">
+            <div className="relative h-10 sm:h-12 w-auto group-hover:scale-[1.02] transition-transform duration-300">
               <Image
-                src="https://res.cloudinary.com/dnjj3tr4d/image/upload/v1785409345/SJLogo_piibe7.jpg"
-                alt="Sir Jay Institute Logo"
-                width={44}
-                height={44}
-                className="w-full h-full object-cover"
+                src="/SirJayLogo.jpeg"
+                alt="Sir Jay Training Institute"
+                width={220}
+                height={55}
+                className="h-10 sm:h-12 w-auto object-contain"
                 priority
               />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-lg font-black tracking-tight text-slate-900 group-hover:text-navy-800 transition-colors flex items-center gap-1.5">
-                SIR JAY
-                <span className="text-xs px-1.5 py-0.5 rounded bg-gold-500/20 text-gold-700 font-bold border border-gold-500/30">
-                  INSTITUTE
-                </span>
-              </span>
-              <span className="text-[10px] text-slate-500 font-bold tracking-wider uppercase">
-                Nanyuki, Kenya
-              </span>
             </div>
           </Link>
 

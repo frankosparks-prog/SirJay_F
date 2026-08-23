@@ -39,9 +39,13 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${poppins.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-gold-500/30 selection:text-navy-950">
+      <body
+        suppressHydrationWarning
+        className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-gold-500/30 selection:text-navy-950"
+      >
         <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>

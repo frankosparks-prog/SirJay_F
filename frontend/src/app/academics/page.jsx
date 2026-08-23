@@ -178,7 +178,7 @@ export default function AcademicsPage() {
         </div>
 
         <SectionHeader
-          badge="Progressive Modules"
+          // badge="Progressive Modules"
           title="Fashion Design Track"
           titleHighlight="Duration Breakdown"
           subtitle="4 modular stages of 3 months each designed to take students from absolute foundation to industry leadership."
@@ -218,7 +218,7 @@ export default function AcademicsPage() {
       {/* DYNAMIC COURSE CATALOG SECTION FETCHED FROM BACKEND API */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         <SectionHeader
-          badge="Complete Curriculum"
+          // badge="Complete Curriculum"
           title="Official Course"
           titleHighlight="Catalog"
           subtitle="Browse all available vocational programs offered at Sir Jay Training Institute (Nanyuki Campus)."
@@ -307,7 +307,7 @@ export default function AcademicsPage() {
         <div className="space-y-12">
           <SectionHeader
             dark={true}
-            badge="Full Syllabus Overview"
+            // badge="Full Syllabus Overview"
             title="12 Core Units"
             titleHighlight="Covered"
             subtitle="Every student masters these 12 core competencies during their journey at Sir Jay Institute."
@@ -345,7 +345,7 @@ export default function AcademicsPage() {
       {/* KNQF PROGRESSION TABLE */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <SectionHeader
-          badge="Qualifications"
+          // badge="Qualifications"
           title="National"
           titleHighlight="Progression Table"
           subtitle="See exact entry requirements, study durations, and next level pathways recognized across Kenya."
@@ -356,7 +356,7 @@ export default function AcademicsPage() {
       {/* FLEXIBLE LEARNING HOURS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         <SectionHeader
-          badge="Adaptable Schedules"
+          // badge="Adaptable Schedules"
           title="Flexible Learning"
           titleHighlight="Hours & Sessions"
           subtitle="Choose the schedule that fits your daily routine without sacrificing hands-on instructor time."

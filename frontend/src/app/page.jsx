@@ -226,11 +226,24 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: easeCurve }}
-            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-panel-dark text-gold-300 text-xs md:text-sm font-semibold shadow-2xl border border-gold-500/30"
+            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-panel-dark text-gold-300 text-xs md:text-sm font-semibold shadow-2xl border border-gold-500/40 bg-navy-950/80 backdrop-blur-md"
           >
-            <Zap className="w-4 h-4 text-gold-400 animate-pulse" />
-            <span>{heroBadgeText}</span>
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+            <svg
+              viewBox="0 0 122.88 73.27"
+              className="w-5 h-3.5 fill-gold-400 text-gold-400 shrink-0"
+              aria-hidden="true"
+            >
+              <g>
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  fill="currentColor"
+                  d="M104.27,58.88l-0.54-19.99l-32.85,9.49c-2.96,0.65-5.88,0.96-8.74,0.97c-3.07,0.01-6.09-0.32-9.06-0.97 L21.7,38.79v20.27c0.9,10.53,31.11,13.75,40.38,14.19c7.43,0.36,36.78-3.52,40.64-9.57C103.55,62.36,104.07,60.76,104.27,58.88 L104.27,58.88z M117.58,24.5v24.43h0.77c0.53,0,0.96,0.43,0.96,0.96v6.57c0,0.52-0.43,0.96-0.96,0.96h-0.77v2.3 c0.98,0.18,1.73,1.05,1.73,2.08v0c0,1.16-0.96,2.12-2.12,2.12h-3.79c-1.16,0-2.12-0.95-2.12-2.12v0c0-1.03,0.75-1.9,1.73-2.08v-2.3 h-0.77c-0.52,0-0.96-0.43-0.96-0.96v-6.57c0-0.53,0.43-0.96,0.96-0.96h0.77v-23L73.03,38.35c-7.24,1.72-14.48,1.84-21.72,0 L7.18,25.18l-3.99-1.19c-4.97-2.03-3.73-6.8,0.9-7.9L54,1.19c5.15-1.47,10.29-1.7,15.44,0l49.01,14.72 c5.33,1.3,6.38,6.23,0.18,8.26L117.58,24.5L117.58,24.5z"
+                />
+              </g>
+            </svg>
+            <span className="tracking-wide">{heroBadgeText}</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
           </motion.div>
 
           <div className="space-y-4">
@@ -331,7 +344,7 @@ export default function HomePage() {
         <div className="space-y-12">
           <SectionHeader
             dark={true}
-            badge="The Sir Jay Advantage"
+            // badge="The Sir Jay Advantage"
             title="Why Students Choose"
             titleHighlight="Sir Jay Institute"
             subtitle="We combine practical hands-on workshop training with real business acumen so every graduate steps into the market ready to produce."
@@ -397,7 +410,7 @@ export default function HomePage() {
         </div>
 
         <SectionHeader
-          badge="Flagship Department"
+          // badge="Flagship Department"
           title="Sir Jay School of"
           titleHighlight="Fashion Design"
           subtitle="From zero experience to crafting bespoke suits and contemporary apparel in 4 progressive 3-month modules."
@@ -484,7 +497,7 @@ export default function HomePage() {
         </div>
 
         <SectionHeader
-          badge="Qualifications"
+          // badge="Qualifications"
           title="National Progression"
           titleHighlight="Pathways"
           subtitle="Understand how your studies at Sir Jay Institute build up towards national certificates and university progression. However, we encourage studies due to passion and interest"
@@ -497,7 +510,7 @@ export default function HomePage() {
       {/* COMING SOON DEPARTMENTS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         <SectionHeader
-          badge="Expanding Horizons"
+          // badge="Expanding Horizons"
           title="New Departments"
           titleHighlight="Coming Soon"
           subtitle="Sir Jay Institute is growing to provide comprehensive vocational training across multiple creative industries."

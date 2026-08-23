@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Lock, User, ShieldCheck, ArrowRight, AlertCircle } from "lucide-react";
+import { Lock, User, ShieldCheck, ArrowRight, ArrowLeft, AlertCircle, Eye, EyeOff } from "lucide-react";
 import Button from "@/components/ui/Button";
 import { loginAdmin } from "@/lib/api";
 
@@ -12,6 +13,7 @@ export default function AdminLoginPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -25,7 +27,7 @@ export default function AdminLoginPage() {
       if (res && res.success) {
         router.push("/admin");
       } else {
-        setError(res?.message || "Invalid credentials. Use admin / admin123");
+        setError(res?.message || "Invalid username or password.");
       }
     } catch (err) {
       setError("Login failed. Make sure backend API server is running.");
@@ -47,17 +49,18 @@ export default function AdminLoginPage() {
       >
         {/* Header */}
         <div className="text-center space-y-3">
-          <div className="w-16 h-16 mx-auto rounded-2xl bg-white border border-gold-500/40 p-2 flex items-center justify-center shadow-xl">
+          <div className="bg-white p-2 rounded-2xl border border-gold-500/40 shadow-xl inline-block">
             <Image
-              src="https://res.cloudinary.com/dnjj3tr4d/image/upload/v1785409345/SJLogo_piibe7.jpg"
+              src="/SirJayLogo.jpeg"
               alt="Sir Jay Logo"
-              width={56}
-              height={56}
-              className="w-full h-full object-cover rounded-xl"
+              width={180}
+              height={45}
+              className="h-10 w-auto object-contain"
+              priority
             />
           </div>
           <div>
-            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-gold-400 flex items-center justify-center gap-1">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-gold-400 flex items-center justify-center gap-1 mt-1">
               <ShieldCheck className="w-3.5 h-3.5" /> TVETA Certified Control System
             </span>
             <h1 className="text-2xl font-black text-white mt-1">Sir Jay Admin Portal</h1>
@@ -82,7 +85,7 @@ export default function AdminLoginPage() {
               <input
                 type="text"
                 required
-                placeholder="Enter username (admin)"
+                placeholder="Enter username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 rounded-xl bg-navy-900 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-gold-400"
@@ -95,13 +98,25 @@ export default function AdminLoginPage() {
             <div className="relative">
               <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 required
-                placeholder="Enter password (admin123)"
+                placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 rounded-xl bg-navy-900 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-gold-400"
+                className="w-full pl-10 pr-10 py-3 rounded-xl bg-navy-900 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-gold-400"
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3.5 top-3.5 text-slate-500 hover:text-gold-400 transition-colors focus:outline-none"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <EyeOff className="w-4 h-4" />
+                ) : (
+                  <Eye className="w-4 h-4" />
+                )}
+              </button>
             </div>
           </div>
 
@@ -115,6 +130,16 @@ export default function AdminLoginPage() {
             >
               {loading ? "Authenticating..." : "Sign In to Admin Portal"}
             </Button>
+          </div>
+
+          <div className="pt-2 text-center">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 text-xs font-bold text-slate-400 hover:text-gold-400 transition-colors py-1 px-3 rounded-lg hover:bg-white/5"
+            >
+              <ArrowLeft className="w-4 h-4 text-gold-400" />
+              <span>Back to Home Website</span>
+            </Link>
           </div>
         </form>
       </motion.div>

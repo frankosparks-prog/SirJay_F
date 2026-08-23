@@ -176,7 +176,7 @@ export default function AboutPage() {
 
           <SectionHeader
             dark={true}
-            badge="Guiding Principles"
+            // badge="Guiding Principles"
             title="Vision & Mission"
             titleHighlight="Statement"
             subtitle="Our strategic roadmap for empowering students with marketable technical skills and ethical leadership."

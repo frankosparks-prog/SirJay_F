@@ -21,23 +21,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800/80">
           {/* Column 1: Brand & Identity */}
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-11 h-11 rounded-xl overflow-hidden shadow-md relative border border-gold-500/30 bg-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300">
+            <Link href="/" className="inline-block group">
+              <div className="bg-white p-2 rounded-xl border border-gold-500/30 shadow-md group-hover:scale-105 transition-transform duration-300">
                 <Image
-                  src="https://res.cloudinary.com/dnjj3tr4d/image/upload/v1785409345/SJLogo_piibe7.jpg"
-                  alt="Sir Jay Institute Logo"
-                  width={44}
-                  height={44}
-                  className="w-full h-full object-cover"
+                  src="/SirJayLogo.jpeg"
+                  alt="Sir Jay Training Institute"
+                  width={220}
+                  height={55}
+                  className="h-11 sm:h-12 w-auto object-contain"
                 />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-lg font-black tracking-tight text-white">
-                  SIR JAY <span className="text-gold-400 font-bold">INSTITUTE</span>
-                </span>
-                <span className="text-[10px] text-slate-400 uppercase tracking-widest">
-                  Nanyuki, Kenya
-                </span>
               </div>
             </Link>
 

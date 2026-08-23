@@ -110,7 +110,7 @@ export default function EventsPage() {
       {/* EVENT CARDS GRID */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <SectionHeader
-          badge="Upcoming Highlights"
+          // badge="Upcoming Highlights"
           title="Campus Events &"
           titleHighlight="Workshops"
           subtitle="Join us for interactive fashion showcases, technical bootcamps, and career mentoring sessions."
@@ -192,7 +192,7 @@ export default function EventsPage() {
               </p>
             </div>
           </div>
-          <Button href="/contact" variant="outline" className="bg-gold-500 text-navy-950 hover:bg-gold-600 hover:text-white cursor-pointer">  
+          <Button href="/contact" className="bg-gold-500 text-navy-950 hover:bg-gold-600 hover:text-white cursor-pointer">  
             Contact Admissions Desk
           </Button>
         </div>
