@@ -17,7 +17,11 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Sir Jay Training Institute | Fashion, ICT & Media Arts in Nanyuki, Kenya",
+  metadataBase: new URL("https://sirjay.co.ke"),
+  title: {
+    default: "Sir Jay Training Institute | Fashion, ICT & Media Arts in Nanyuki, Kenya",
+    template: "%s | Sir Jay Training Institute",
+  },
   description:
     "TVETA-registered vocational college in Nanyuki offering practical courses in Fashion Design, ICT, Media Arts, Beauty, and Entrepreneurship. Achieving Greatness Together.",
   keywords: [
@@ -27,7 +31,50 @@ export const metadata = {
     "TVETA Institute Laikipia",
     "Sir Jay Suits",
     "KNQF Certificate Diploma Kenya",
+    "ICT Courses Nanyuki",
+    "Media Arts College Kenya",
   ],
+  authors: [{ name: "Sir Jay Training Institute", url: "https://sirjay.co.ke" }],
+  creator: "Sir Jay Training Institute",
+  publisher: "Sir Jay Training Institute",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Sir Jay Training Institute | Fashion, ICT & Media Arts",
+    description:
+      "Empowering minds with hands-on skills in Fashion Design, ICT, Media Arts & Beauty in Nanyuki, Kenya.",
+    url: "https://sirjay.co.ke",
+    siteName: "Sir Jay Training Institute",
+    images: [
+      {
+        url: "/SirJayLogo.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Sir Jay Training Institute Logo",
+      },
+    ],
+    locale: "en_KE",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sir Jay Training Institute | Nanyuki, Kenya",
+    description:
+      "TVETA-registered vocational college offering practical courses in Fashion, ICT, Media & Beauty.",
+    images: ["/SirJayLogo.jpeg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: "/SJLogo.ico",
     shortcut: "/SJLogo.ico",
