@@ -116,7 +116,7 @@ export default function PageHero({
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-gold-500/10 text-gold-300 border border-gold-500/30">
-              <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-gold-400"></span>
               {badge}
             </span>
           </motion.div>
@@ -131,7 +131,7 @@ export default function PageHero({
         >
           {title}{" "}
           {titleHighlight && (
-            <span className="text-gradient-gold block md:inline font-extrabold">
+            <span className="text-gold-400 block md:inline font-extrabold">
               {titleHighlight}
             </span>
           )}

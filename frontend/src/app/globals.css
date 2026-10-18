@@ -57,9 +57,7 @@
 }
 
 .text-gradient-gold {
-  background: linear-gradient(135deg, #F59E0B 0%, #D4AF37 50%, #F3E09B 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #d4af37;
 }
 
 /* GLOBAL & CUSTOM THEME-COLORED SCROLLBAR STYLING */

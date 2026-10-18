@@ -23,7 +23,7 @@ export default function Button({
 
   const variants = {
     primary:
-      "bg-gradient-to-r from-gold-500 via-amber-400 to-gold-500 text-navy-950 font-extrabold tracking-wide shadow-lg shadow-gold-500/30 hover:shadow-gold-500/50 hover:brightness-105 border border-gold-600/50",
+      "bg-gold-500 hover:bg-gold-600 text-navy-950 font-extrabold tracking-wide shadow-md hover:shadow-lg transition-colors border border-gold-600/40",
     secondary:
       "bg-navy-900 hover:bg-navy-950 text-white font-bold tracking-wide shadow-lg shadow-navy-950/30 border border-navy-800/80 hover:border-gold-500/50",
     outline:

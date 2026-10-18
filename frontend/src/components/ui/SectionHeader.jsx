@@ -30,13 +30,13 @@ export default function SectionHeader({
     >
       {badge && (
         <span
-          className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 shadow-sm ${
+          className={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 shadow-sm ${
             dark
               ? "bg-gold-500/10 text-gold-400 border border-gold-500/25"
-              : "bg-gold-500/15 text-gold-700 border border-gold-500/30"
+              : "bg-gold-500/10 text-gold-700 border border-gold-500/25"
           }`}
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-gold-500 animate-pulse"></span>
+          <span className="w-1.5 h-1.5 rounded-full bg-gold-500"></span>
           {badge}
         </span>
       )}
@@ -48,7 +48,7 @@ export default function SectionHeader({
       >
         {title}{" "}
         {titleHighlight && (
-          <span className="text-gradient-gold block md:inline font-black">
+          <span className={`${dark ? "text-gold-400" : "text-gold-600"} block md:inline font-black`}>
             {titleHighlight}
           </span>
         )}
@@ -64,7 +64,7 @@ export default function SectionHeader({
         </p>
       )}
 
-      <div className="w-20 h-1 bg-gradient-to-r from-gold-500 to-transparent rounded-full mt-5"></div>
+      <div className="w-12 h-1 bg-gold-500 rounded-full mt-4"></div>
     </motion.div>
   );
 }
